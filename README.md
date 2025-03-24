@@ -3,6 +3,9 @@
 ## Roster
 
 **PM:** Vedant Kothari
+
 Aidan Wong
+
 Alex Luo
+
 Jonathan Metzler
