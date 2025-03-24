@@ -1,2 +1,8 @@
-# JAVA__vedantk3_aidanw26_alexl175_jonathanm764
-P04
+# Project 4 
+
+## Roster
+
+**PM:** Vedant Kothari
+Aidan Wong
+Alex Luo
+Jonathan Metzler
