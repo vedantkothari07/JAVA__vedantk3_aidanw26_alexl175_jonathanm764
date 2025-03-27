@@ -3,3 +3,6 @@ aidanW -- 2025-03-24 17:30
 
 aidanW -- 2025-03-26 23:28
 * Uploaded design document
+
+alexL -- 2025-03-27 4:00
+* Updates to design document: 1. updated lines in component map (so lines point in both directions) 2. added specifics on what users are inputting 3. labeled database value types (i.e. String) 4. updated site map so that non registered users have less access 
