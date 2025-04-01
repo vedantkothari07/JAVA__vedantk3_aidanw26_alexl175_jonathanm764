@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+
+
+<html>
+
+  <head>
+    <title> LOGIN PAGE </title>
+  </head>
+
+  <body>
+
+
+    <h3>
+      Enter your username to proceed.
+    </h3>
+    <form action="/login" method="POST">
+      <h3>Login</h3>
+      <p>Username: </p>
+      <input type="text" name="username">
+      <br><br>
+      <p>Password: </p>
+      <input type="password" class="pw2" name="password">
+      <br><br>
+      <input type="submit" name="sub1" value="Login">
+      </form>
+      <form action="/register" method="POST">
+        <h3>Register</h3>
+        <p>Username: </p>
+        <input type="text" name="username">
+        <br><br>
+        <p>Password: </p>
+        <input type="password" class="pw2" name="password">
+        <br><br>
+        <input type="submit" name="sub1" value="Register">
+        </form>
+      <p id = "error">{{error_message}}<p>
+    <br>
+    <!-- <form action="/login" method="POST">
+      <input type="text" name="password">
+      <input type="submit" name="sub1" value="Password">
+    </form> -->
+    <br>
+  </body>
+
+
+</html>

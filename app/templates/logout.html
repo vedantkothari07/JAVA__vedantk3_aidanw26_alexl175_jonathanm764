@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+
+
+<html>
+
+  <head>
+    <title> LOGOUT PAGE </title>
+  </head>
+
+  <body>
+    <h1>
+      {{username}}, are you sure you wish to logout?
+    </h1>
+    <form action="/logout" method="POST">
+      <input type="submit" name="back", value="Go back">
+    </form>
+    <br>
+    <form action="/logout" method="POST">
+      <input type="submit" name="logout", value="Logout">
+    </form>
+    <br>
+  </body>
+
+  
+</html>
