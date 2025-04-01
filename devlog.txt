@@ -9,3 +9,6 @@ alexL -- 2025-03-27 16:00
 
 aidanW -- 2025-03-27 17:36
 * Updated version number to V1
+
+aidanW -- 2025-04-01 10:40
+* Added README and requirements file contents
