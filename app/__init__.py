@@ -36,7 +36,7 @@ def home():
     # else have them log in
     return redirect(url_for('login'))
 
-@app.route(("/login") , methods=['GET', 'POST'])
+@app.route(("/login") , methods=['POST'])
 def login():
     # if submission
     if request.method == 'POST':
