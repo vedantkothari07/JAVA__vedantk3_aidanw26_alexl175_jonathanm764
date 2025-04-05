@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <title> LOGIN PAGE </title>
+  </head>
+
+  <body>
+    <h1>LOGIN</h1>
+    <form method="POST">
+      <input type="text" placeholder="Username" name="name">
+      <input type="password" placeholder="Password" name="password">
+      <input type="hidden" name="form_type" value="sign_in">
+      <input type="submit" value="Enter">
+    </form>
+    <p id="errortag">{{errorL}}</p>
+    <br>
+    <h1>REGISTER</h1>
+    <form method="POST">
+      <input type="text" placeholder="Username" name="name">
+      <input type="password" placeholder="Password" name="password">
+      <input type="hidden" name="form_type" value="sign_up">
+      <input type="submit" value="Enter">
+    </form>
+    <p id="errortag">{{errorS}}</p> 
+  </body>
+</html>
