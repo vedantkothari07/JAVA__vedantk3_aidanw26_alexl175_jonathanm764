@@ -12,3 +12,9 @@ aidanW -- 2025-03-27 17:36
 
 aidanW -- 2025-04-01 10:40
 * Added README and requirements file contents
+
+aidanW -- 2025-04-05 16:52
+* Fixed 500 Internal Server Error
+* Redesigned authentication code
+    * Currently uses sqlite3 (have to swap to Mongo)
+* Added DBModules folder for database related code
