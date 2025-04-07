@@ -49,7 +49,7 @@ def registerUser(username, password):
         return True
     return False
 '''
-MONGO_URL = "mongodb+srv://alexl175:4Kqgfoufp7qErYSA@cluster0.pvbrpxs.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
+MONGO_URL = "mongodb+srv://alexl175:@cluster0.pvbrpxs.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
 client = MongoClient(MONGO_URL)
 db = client["userdb"]
 users = db["users"]
