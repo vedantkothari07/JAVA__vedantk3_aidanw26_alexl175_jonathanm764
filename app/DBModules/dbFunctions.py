@@ -1,3 +1,4 @@
+import csv
 from pymongo import MongoClient, errors
 
 ############################# Build Database #############################
@@ -6,6 +7,7 @@ MONGO_URL = "mongodb+srv://alexl175:4Kqgfoufp7qErYSA@cluster0.pvbrpxs.mongodb.ne
 client = MongoClient(MONGO_URL)
 db = client["userdb"]
 users = db["users"]
+obesity_records = db["obesity_records"]
 
 def initDB():
     try:
@@ -27,3 +29,36 @@ def registerUser(username, password):
         return False              # username taken
     addUser(username, password)
     return True
+
+'''
+def import_obesity_csv(csv_path: str = "ObesityDataSet_raw_and_data_sinthetic.csv"):
+    docs = []
+    with open(csv_path, newline="", encoding="utf-8") as f:
+        for row in csv.DictReader(f):
+            docs.append({
+                "demographics": {
+                    "age":        float(row["Age"]),
+                    "gender":     row["Gender"],
+                    "height_m":   float(row["Height"]),
+                    "weight_kg":  float(row["Weight"]),
+                },
+                "lifestyle": {
+                    "caloric_beverages": row["CALC"],                
+                    "high_calorie_food":  row["FAVC"].lower() == "yes",
+                    "veggie_freq":        float(row["FCVC"]), 
+                    "meals_per_day":      float(row["NCP"]),
+                    "calorie_monitor":    row["SCC"].lower() == "yes",
+                    "smokes":             row["SMOKE"].lower() == "yes",
+                    "water_litres":       float(row["CH2O"]),
+                    "physical_activity":  float(row["FAF"]),         
+                    "tech_use":           float(row["TUE"]),         
+                    "between_meals":      row["CAEC"],
+                    "transport":          row["MTRANS"],
+                },
+                "family_history_overweight": row["family_history_with_overweight"].lower() == "yes",
+                "target": row["NObeyesdad"],                        
+            })
+    if docs:
+        obesity_records.insert_many(docs)
+    print("inserted")
+'''
