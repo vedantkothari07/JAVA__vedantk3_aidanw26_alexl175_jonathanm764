@@ -1,3 +1,10 @@
+DESIGN REVISIONS THUS FAR:
+------------------------------------
+1. Added additional dataset for state data
+
+====================================
+
+
 aidanW -- 2025-03-24 17:30
 * Added README and flag
 
@@ -33,3 +40,4 @@ vedantK -- 2025-04-09 10:49
 
 aidanW -- 2024-04-09 10:53
 * Moved template files to correct location
+
