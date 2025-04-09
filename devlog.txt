@@ -21,3 +21,6 @@ aidanW -- 2025-04-05 16:52
 
 alexL -- 2025-04-07 12:00
 * swapped authentication to Mongo 
+
+vedantK -- 2025-04-09 10:49
+* Created visualizations and predictions templates
