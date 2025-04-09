@@ -62,3 +62,19 @@ def import_obesity_csv(csv_path: str = "ObesityDataSet_raw_and_data_sinthetic.cs
         obesity_records.insert_many(docs)
     print("inserted")
 '''
+
+def import_states(csv_path: str = "LakeCounty_Health_-6177935595181947989.csv"):
+    docs = []
+    with open(csv_path, newline="", encoding="utf-8") as f:
+        for row in csv.DictReader(f):
+            docs.append({
+                "state": row["NAME"],
+                "obesity" : float(row["Obesity"]),
+                "area" : float(row["Shape__Area"]),
+                "length" : float(row["Shape__Length"]),
+            })
+    if docs:
+        state_records.insert_many(docs)
+        print("inserted")
+
+
