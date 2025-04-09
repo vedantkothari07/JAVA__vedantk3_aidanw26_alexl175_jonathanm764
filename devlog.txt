@@ -19,8 +19,17 @@ aidanW -- 2025-04-05 16:52
     * Currently uses sqlite3 (have to swap to Mongo)
 * Added DBModules folder for database related code
 
-alexL -- 2025-04-07 12:00
+alexL -- 2025-04-07 0:00
 * swapped authentication to Mongo 
+
+alexL -- 2024-04-07 20:00
+* Created function to import csv data into Mongo database for obesity
+
+aidanW -- 2024-04-07 21:00
+* Created simple barchart in D3 with hover effect
 
 vedantK -- 2025-04-09 10:49
 * Created visualizations and predictions templates
+
+aidanW -- 2024-04-09 10:53
+* Moved template files to correct location
