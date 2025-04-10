@@ -44,3 +44,7 @@ DESIGN REVISIONS THUS FAR:
 1. Added additional dataset for state data
 
 ====================================
+
+aidanW -- 2024-04-10 11:00
+* Fixed site running on droplet
+* Added D3 Visulization testing to droplet url
