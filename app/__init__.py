@@ -85,6 +85,10 @@ def predict():
         }
     return redirect(url_for('home'))
 
+@app.route('/d3playground', methods=['POST'])
+def d3playground():
+    return render_template('D3Graphs/barchart.html')
+
 if __name__ == "__main__":
     app.debug = True
     app.run()
