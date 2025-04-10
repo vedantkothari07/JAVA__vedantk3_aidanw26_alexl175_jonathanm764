@@ -7,7 +7,7 @@ Time Spent: 1
 '''
 
 from flask import Flask, render_template, url_for, session, request, redirect
-from DBModules import dbFunctions
+from app.DBModules import dbFunctions
 import os
 
 
