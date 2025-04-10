@@ -3,6 +3,7 @@
 <html>
   <head>
     <title> LOGIN PAGE </title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
   </head>
 
   <body>
@@ -19,6 +20,68 @@
     <form method="POST">
       <input type="text" placeholder="Username" name="name">
       <input type="password" placeholder="Password" name="password">
+      <label>age:</label>
+      <input type="number" name="age" step="1" required>
+      <label>gender:</label>
+      <select name="gender">
+        <option value="Male">Male</option>
+        <option value="Female">Female</option>
+      </select>
+      <label>height (m):</label>
+      <input type="number" name="height_m" step="0.01" required>
+      <label>weight (kg):</label>
+      <input type="number" name="weight_kg" step="0.1" required>
+      <label>CALC(alcohol):</label>
+      <select name="caloric_beverages">
+        <option value="no">No</option>
+        <option value="Sometimes">Sometimes</option>
+        <option value="Frequently">Frequently</option>
+      </select>
+      <label>FAVC(high calorie food)?</label>
+      <select name="high_calorie_food">
+        <option value="yes">Yes</option>
+        <option value="no" selected>No</option>
+      </select>
+      <label>FCVC(veggie freq):</label>
+      <input type="number" name="veggie_freq" step="0.1" required>
+      <label>NCP(meals/day):</label>
+      <input type="number" name="meals_per_day" step="0.1" required>
+      <label>SCC(monitor calories)?</label>
+      <select name="calorie_monitor">
+        <option value="yes">Yes</option>
+        <option value="no" selected>No</option>
+      </select>
+      <label>SMOKE?</label>
+      <select name="smokes">
+        <option value="yes">Yes</option>
+        <option value="no" selected>No</option>
+      </select>
+      <label>CH2O(water L/day):</label>
+      <input type="number" name="water_litres" step="0.1" required>
+      <label>FAF(physical activities/week):</label>
+      <input type="number" name="physical_activity" step="0.1" required>
+      <label>TUE(tech use hours/day):</label>
+      <input type="number" name="tech_use" step="0.1" required>
+      <label>CAEC(snacks between meals):</label>
+      <select name="between_meals">
+        <option value="no">No</option>
+        <option value="Sometimes">Sometimes</option>
+        <option value="Frequently">Frequently</option>
+        <option value="Always">Always</option>
+      </select>
+      <label>MTRANS:</label>
+      <select name="transport">
+        <option value="Walking">Walking</option>
+        <option value="Bike">Bike</option>
+        <option value="Public_Transportation">Public_Transportation</option>
+        <option value="Automobile">Automobile</option>
+        <option value="Motorbike">Motorbike</option>
+      </select>
+      <label>fam history?</label>
+      <select name="family_history_overweight">
+        <option value="yes">Yes</option>
+        <option value="no" selected>No</option>
+      </select> 
       <input type="hidden" name="form_type" value="sign_up">
       <input type="submit" value="Enter">
     </form>

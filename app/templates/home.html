@@ -10,5 +10,12 @@
   <form action="{{ url_for('logout') }}" method="post">
     <button type="submit" class="btn">GET ME OUT OF HERE</button>
   </form>
+  <form action="{{ url_for('predict') }}" method="post">
+    <button type="submit">Predict</button>
+  </form>
+  {% if risk_info %}
+    <p>points: {{ risk_info.points }}</p>
+    <p>category: {{ risk_info.category }}</p>
+  {% endif %}
 </body>
 </html>
