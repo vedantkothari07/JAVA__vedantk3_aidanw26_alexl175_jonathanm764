@@ -137,7 +137,7 @@ def computeRisk(user_doc):
         points += 1
 
     if calorie_monitor:
-        points -= 1  
+        points -= 1
 
     if physical_activity <= 0:
         points += 3
@@ -177,20 +177,20 @@ def import_obesity_csv(csv_path: str = "ObesityDataSet_raw_and_data_sinthetic.cs
                     "weight_kg":  float(row["Weight"]),
                 },
                 "lifestyle": {
-                    "caloric_beverages": row["CALC"],                
+                    "caloric_beverages": row["CALC"],
                     "high_calorie_food":  row["FAVC"].lower() == "yes",
-                    "veggie_freq":        float(row["FCVC"]), 
+                    "veggie_freq":        float(row["FCVC"]),
                     "meals_per_day":      float(row["NCP"]),
                     "calorie_monitor":    row["SCC"].lower() == "yes",
                     "smokes":             row["SMOKE"].lower() == "yes",
                     "water_litres":       float(row["CH2O"]),
-                    "physical_activity":  float(row["FAF"]),         
-                    "tech_use":           float(row["TUE"]),         
+                    "physical_activity":  float(row["FAF"]),
+                    "tech_use":           float(row["TUE"]),
                     "between_meals":      row["CAEC"],
                     "transport":          row["MTRANS"],
                 },
                 "family_history_overweight": row["family_history_with_overweight"].lower() == "yes",
-                "target": row["NObeyesdad"],                        
+                "target": row["NObeyesdad"],
             })
     if docs:
         obesity_records.insert_many(docs)
@@ -211,6 +211,16 @@ def import_states(csv_path: str = "LakeCounty_Health_-6177935595181947989.csv"):
         state_records.insert_many(docs)
         print("inserted")
 '''
-
-
-
+def import_years(csv_path: str = "obesity-cleaned.csv"):
+    docs = []
+    with open(csv_path, newline="", encoding="utf-8") as f:
+        for row in csv.DictReader(f):
+            docs.append({
+                "country": row["Country"],
+                "year" : row["Year"],
+                "obesity" : row["Obesity (%)"],
+                #one country, one year, avg range of obesity across year for given country, 
+            })
+    if docs:
+        state_records.insert_many(docs)
+        print("inserted")
