@@ -1,10 +1,3 @@
-DESIGN REVISIONS THUS FAR:
-------------------------------------
-1. Added additional dataset for state data
-
-====================================
-
-
 aidanW -- 2025-03-24 17:30
 * Added README and flag
 
@@ -44,3 +37,10 @@ aidanW -- 2024-04-09 10:53
 alexL -- 2024-04-09 21:00
 * added point system to do risk assessment for obesity 
 * added form for user input on obesity records and db function to store
+
+aidanW -- 2024-04-09 22:00
+DESIGN REVISIONS THUS FAR:
+------------------------------------
+1. Added additional dataset for state data
+
+====================================
