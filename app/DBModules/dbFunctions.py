@@ -212,15 +212,36 @@ def import_states(csv_path: str = "LakeCounty_Health_-6177935595181947989.csv"):
         print("inserted")
 '''
 def import_years(csv_path: str = "obesity-cleaned.csv"):
-    docs = []
+    by_year = {}
     with open(csv_path, newline="", encoding="utf-8") as f:
         for row in csv.DictReader(f):
-            docs.append({
-                "country": row["Country"],
-                "year" : row["Year"],
-                "obesity" : row["Obesity (%)"],
-                #one country, one year, avg range of obesity across year for given country, 
-            })
+            country = row["Country"]
+            year = row["Year"]
+            obesity = row["Obesity (%)"]
+            sex = row["Sex"].lower()  # male, female, or both sexes
+
+            # gets first num
+            main = obesity.split()[0]
+            try:
+                obesity_val = float(main)
+            except ValueError:
+                continue
+
+            # make sure we have year
+            if year not in by_year:
+                by_year[year] = {
+                    "year": int(year),  
+                    "countries": {}
+                }
+
+            # make sure we have sub-dict for country
+            if country not in by_year[year]["countries"]:
+                by_year[year]["countries"][country] = {}
+
+            by_year[year]["countries"][country]["bmi"] = obesity_val
+
+    docs = list(by_year.values())
+
     if docs:
-        state_records.insert_many(docs)
+        year_records.insert_many(docs)
         print("inserted")
