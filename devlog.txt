@@ -48,3 +48,6 @@ DESIGN REVISIONS THUS FAR:
 aidanW -- 2024-04-10 11:00
 * Fixed site running on droplet
 * Added D3 Visulization testing to droplet url
+
+aidanW -- 2024-04-11 21:20
+* Implemented Top 25 obesity percentage animated bar graph race in "/visualize"
