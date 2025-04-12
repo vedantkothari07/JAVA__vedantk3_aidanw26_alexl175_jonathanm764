@@ -2,68 +2,54 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Horizontal Bar Chart</title>
-  <script src="https://d3js.org/d3.v7.min.js"></script>
+  <title>D3 Obesity Visualization</title>
+  <script src="/static/d3.min.js"></script>
   <style>
-    .bar {
-      fill: steelblue;
-    }
-    .bar:hover {
-      fill: darkorange;
-    }
-    .axis text {
-      font-size: 12px;
-    }
+    body { font-family: sans-serif; }
+    svg { border: 1px solid #ccc; }
+    .dot { opacity: 0.7; }
   </style>
 </head>
 <body>
-  <div id="chart"></div>
+  <h1>Obesity Data Visualization</h1>
+  <svg width="800" height="500"></svg>
 
   <script>
-    const data = [
-      { name: "1", value: 10 },
-      { name: "2", value: 20 },
-      { name: "3", value: 30 },
-      { name: "4", value: 40 },
-      { name: "5", value: 50 }
-    ];
+    fetch('/api/data')
+      .then(res => res.json())
+      .then(data => {
+        const svg = d3.select("svg");
+        const margin = {top: 20, right: 20, bottom: 30, left: 40};
+        const width = +svg.attr("width") - margin.left - margin.right;
+        const height = +svg.attr("height") - margin.top - margin.bottom;
+        const g = svg.append("g").attr("transform", `translate(${margin.left},${margin.top})`);
 
-    const margin = { top: 20, right: 30, bottom: 40, left: 100 },
-          width = 600 - margin.left - margin.right,
-          height = 300 - margin.top - margin.bottom;
+        const x = d3.scaleLinear()
+          .domain(d3.extent(data, d => d.weight))
+          .range([0, width]);
 
-    const svg = d3.select("#chart")
-      .append("svg")
-      .attr("width", width + margin.left + margin.right)
-      .attr("height", height + margin.top + margin.bottom)
-      .append("g")
-      .attr("transform", `translate(${margin.left},${margin.top})`);
+        const y = d3.scaleLinear()
+          .domain(d3.extent(data, d => d.height))
+          .range([height, 0]);
 
-    const y = d3.scaleBand()
-      .domain(data.map(d => d.name))
-      .range([0, height])
-      .padding(0.1);
+        const color = d3.scaleOrdinal(d3.schemeCategory10);
 
-    const x = d3.scaleLinear()
-      .domain([0, d3.max(data, d => d.value)])
-      .range([0, width]);
+        g.append("g")
+          .attr("transform", `translate(0,${height})`)
+          .call(d3.axisBottom(x));
 
-    svg.append("g")
-      .call(d3.axisLeft(y));
+        g.append("g")
+          .call(d3.axisLeft(y));
 
-    svg.append("g")
-      .attr("transform", `translate(0,${height})`)
-      .call(d3.axisBottom(x));
-
-    svg.selectAll(".bar")
-      .data(data)
-      .enter()
-      .append("rect")
-      .attr("class", "bar")
-      .attr("y", d => y(d.name))
-      .attr("height", y.bandwidth())
-      .attr("x", 0)
-      .attr("width", d => x(d.value));
+        g.selectAll(".dot")
+          .data(data)
+          .enter().append("circle")
+          .attr("class", "dot")
+          .attr("r", 4)
+          .attr("cx", d => x(d.weight))
+          .attr("cy", d => y(d.height))
+          .attr("fill", d => color(d.category));
+      });
   </script>
 </body>
 </html>

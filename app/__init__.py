@@ -6,7 +6,7 @@ P04: Makers Makin' It, Act II -- The Seequel
 Time Spent: 1
 '''
 
-from flask import Flask, render_template, url_for, session, request, redirect
+from flask import Flask, render_template, url_for, session, request, redirect, jsonify
 from app.DBModules import dbFunctions
 import os
 
@@ -85,9 +85,14 @@ def predict():
         }
     return redirect(url_for('home'))
 
-@app.route('/d3playground', methods=['GET', 'POST'])
-def d3playground():
-    return render_template('barchart.html')
+@app.route("/d3playgrund")
+def index():
+    return render_template("index.html")
+
+@app.route("/api/data")
+def api_data():
+    data = dbFunctions.get_d3_data()
+    return jsonify(data)
 
 if __name__ == "__main__":
     app.debug = True

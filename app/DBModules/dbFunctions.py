@@ -245,3 +245,28 @@ def import_years(csv_path: str = "obesity-cleaned.csv"):
     if docs:
         year_records.insert_many(docs)
         print("inserted")
+
+import json
+
+def get_d3_data():
+    docs = obesity_records.find({}, {
+        "_id": 0,
+        "demographics.age": 1,
+        "demographics.gender": 1,
+        "demographics.height_m": 1,
+        "demographics.weight_kg": 1,
+        "target": 1
+    })
+
+    data = []
+    for doc in docs:
+        demographics = doc.get("demographics", {})
+        entry = {
+            "age": demographics.get("age"),
+            "gender": demographics.get("gender"),
+            "height": demographics.get("height_m"),
+            "weight": demographics.get("weight_kg"),
+            "category": doc.get("target")
+        }
+        data.append(entry)
+    return data
