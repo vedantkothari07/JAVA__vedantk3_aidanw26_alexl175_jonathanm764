@@ -85,7 +85,7 @@ def predict():
         }
     return redirect(url_for('home'))
 
-@app.route("/d3playgrund")
+@app.route("/d3playground")
 def index():
     return render_template("index.html")
 
