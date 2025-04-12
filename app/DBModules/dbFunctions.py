@@ -8,6 +8,7 @@ client = MongoClient(MONGO_URL)
 db = client["userdb"]
 users = db["users"]
 obesity_records = db["obesity_records"]
+collection = db["year_records"]
 
 def initDB():
     try:
@@ -246,27 +247,19 @@ def import_years(csv_path: str = "obesity-cleaned.csv"):
         year_records.insert_many(docs)
         print("inserted")
 
-import json
+def fetch_obesity_data():
+    records = collection.find({}, {"_id": 0})
+    all_data = []
 
-def get_d3_data():
-    docs = obesity_records.find({}, {
-        "_id": 0,
-        "demographics.age": 1,
-        "demographics.gender": 1,
-        "demographics.height_m": 1,
-        "demographics.weight_kg": 1,
-        "target": 1
-    })
+    for record in records:
+        year = record["year"]
+        countries = record["countries"]
+        for name, stats in countries.items():
+            value = stats.get("obesity%", 0) 
+            all_data.append({
+                "date": f"{year}",
+                "name": name,
+                "value": value
+            })
 
-    data = []
-    for doc in docs:
-        demographics = doc.get("demographics", {})
-        entry = {
-            "age": demographics.get("age"),
-            "gender": demographics.get("gender"),
-            "height": demographics.get("height_m"),
-            "weight": demographics.get("weight_kg"),
-            "category": doc.get("target")
-        }
-        data.append(entry)
-    return data
+    return all_data

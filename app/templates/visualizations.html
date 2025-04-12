@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Obesity Bar Chart Race</title>
+  <script src="https://d3js.org/d3.v7.min.js"></script>
+  <style>
+    body {
+      font-family: sans-serif;
+      text-align: center;
+    }
+
+    #chart-controls {
+      margin: 20px;
+    }
+
+    #chart-container {
+      display: none;
+      max-width: 100%;
+      margin: auto;
+    }
+
+    svg {
+      display: block;
+      margin: auto;
+    }
+
+    button {
+      margin: 5px;
+      padding: 10px 16px;
+      font-size: 14px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <h2>Top 25 Countries by Obesity Over Time</h2>
+
+  <div id="chart-controls">
+    <button id="show-chart">Show Chart</button>
+    <button id="hide-chart">Hide Chart</button>
+    <div id="animation-controls" style="margin-top: 10px; display: none;">
+      <button id="play">Play</button>
+      <button id="pause">Pause</button>
+      <button id="restart">Restart</button>
+    </div>
+  </div>
+
+  <div id="chart-container"></div>
+
+  <!-- Chart logic -->
+  <script src="{{ url_for('static', filename='chart.js') }}"></script>
+</body>
+</html>
