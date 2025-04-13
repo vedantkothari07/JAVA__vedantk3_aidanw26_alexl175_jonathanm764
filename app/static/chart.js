@@ -1,3 +1,8 @@
+document.getElementById("hahahahaha-button").addEventListener("click", () => {
+  document.getElementById("chart-wrapper").style.display = "block";
+  document.getElementById("hahahahaha-button").style.display = "none";
+});
+
 document.getElementById("show-chart").addEventListener("click", () => {
     document.getElementById("chart-container").style.display = "block";
     document.getElementById("animation-controls").style.display = "block";
