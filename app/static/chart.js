@@ -4,15 +4,23 @@ document.getElementById("show-chart").addEventListener("click", () => {
     initObesityChart();
   });
   
-  document.getElementById("hide-chart").addEventListener("click", () => {
-    document.getElementById("chart-container").style.display = "none";
-    document.getElementById("animation-controls").style.display = "none";
-    document.getElementById("chart-container").innerHTML = ""; // Clear SVG
-  });
+document.getElementById("hide-chart").addEventListener("click", () => {
+  document.getElementById("chart-container").style.display = "none";
+  document.getElementById("animation-controls").style.display = "none";
+  document.getElementById("chart-container").innerHTML = ""; // Clear SVG
+});
+
+document.getElementById("reset-chart").addEventListener("click", () => {
+  document.getElementById("chart-container").innerHTML = "";
+  document.getElementById("chart-container").style.display = "block";
+  document.getElementById("animation-controls").style.display = "block";
+  initObesityChart();
+});
   
   function initObesityChart() {
     // Chart settings
-    const width = 960, barSize = 48, n = 25, duration = 250, k = 10;
+    const width = 960, barSize = 48, duration = 250, k = 10;
+    let n = parseInt(document.getElementById("country-count").value);
     const margin = { top: 16, right: 6, bottom: 6, left: 0 };
     const formatNumber = d3.format(",d");
     const formatDate = d3.utcFormat("%Y");
