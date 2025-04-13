@@ -8,7 +8,8 @@ client = MongoClient(MONGO_URL)
 db = client["userdb"]
 users = db["users"]
 obesity_records = db["obesity_records"]
-collection = db["year_records"]
+year_records = db["year_records"]
+state_records = db.state_records
 
 def initDB():
     try:
@@ -248,7 +249,7 @@ def import_years(csv_path: str = "obesity-cleaned.csv"):
         print("inserted")
 
 def fetch_obesity_data():
-    records = collection.find({}, {"_id": 0})
+    records = year_records.find({}, {"_id": 0})
     all_data = []
 
     for record in records:
@@ -263,3 +264,9 @@ def fetch_obesity_data():
             })
 
     return all_data
+
+def get_state_data():
+    data = state_records.find({}, {"_id": 0, "state": 1, "obesity": 1})
+    # Normalize state name
+    result = [{"state": d["state"].strip().lower(), "obesity": d["obesity"]} for d in data]
+    return result

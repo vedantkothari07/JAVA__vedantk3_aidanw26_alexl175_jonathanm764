@@ -7,7 +7,7 @@ Time Spent: 1
 '''
 
 from flask import Flask, render_template, url_for, session, request, redirect, jsonify
-from app.DBModules import dbFunctions
+from DBModules import dbFunctions
 import os
 
 
@@ -92,6 +92,12 @@ def visualize():
 @app.route("/data")
 def data():
     return jsonify(dbFunctions.fetch_obesity_data())
+
+@app.route("/api/state-values")
+def state_values():
+    data = dbFunctions.get_state_data()
+    print(jsonify(data))
+    return jsonify(data)
 
 if __name__ == "__main__":
     app.debug = True

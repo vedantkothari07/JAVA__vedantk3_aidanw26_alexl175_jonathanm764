@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <title>Obesity Bar Chart Race</title>
   <script src="https://d3js.org/d3.v7.min.js"></script>
+  <script src="https://unpkg.com/topojson-client@3"></script>
   <style>
     body {
       font-family: sans-serif;
@@ -59,7 +60,15 @@
     <div id="chart-container"></div>
   </div>
 
+  <button id="hehehe-button">HEHEHE</button>
+  <div id="map-container" style="display: none;">
+    <div id="map"></div>
+  </div>
+
+  <div id="map"></div>
+
   <!-- Chart logic -->
+  
   <script src="{{ url_for('static', filename='chart.js') }}"></script>
 </body>
 </html>
