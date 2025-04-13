@@ -1,17 +1,24 @@
-document.getElementById("hahahahaha-button").addEventListener("click", () => {
-  if (document.getElementById("chart-wrapper").style.display == "hidden") {
-    document.getElementById("chart-wrapper").style.display = "block";
-  }
-  else {
-    document.getElementById("chart-wrapper").style.display = "hidden";
+const hahaBtn = document.getElementById("hahahahaha-button");
+const wrapper = document.getElementById("chart-wrapper");
+
+let chartVisible = false;
+
+hahaBtn.addEventListener("click", () => {
+  chartVisible = !chartVisible;
+  wrapper.style.display = chartVisible ? "block" : "none";
+
+  // Optionally clear the chart if hiding
+  if (!chartVisible) {
+    document.getElementById("chart-container").innerHTML = "";
+    document.getElementById("animation-controls").style.display = "none";
   }
 });
 
 document.getElementById("show-chart").addEventListener("click", () => {
-    document.getElementById("chart-container").style.display = "block";
-    document.getElementById("animation-controls").style.display = "block";
-    initObesityChart();
-  });
+  document.getElementById("chart-container").style.display = "block";
+  document.getElementById("animation-controls").style.display = "block";
+  initObesityChart();
+});
   
 document.getElementById("hide-chart").addEventListener("click", () => {
   document.getElementById("chart-container").style.display = "none";
