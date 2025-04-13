@@ -1,6 +1,10 @@
 document.getElementById("hahahahaha-button").addEventListener("click", () => {
-  document.getElementById("chart-wrapper").style.display = "block";
-  document.getElementById("hahahahaha-button").style.display = "none";
+  if (document.getElementById("chart-wrapper").style.display == "hidden") {
+    document.getElementById("chart-wrapper").style.display = "block";
+  }
+  else {
+    document.getElementById("chart-wrapper").style.display = "hidden";
+  }
 });
 
 document.getElementById("show-chart").addEventListener("click", () => {
