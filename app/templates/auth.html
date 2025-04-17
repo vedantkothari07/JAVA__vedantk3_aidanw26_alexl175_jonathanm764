@@ -6,8 +6,9 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
   </head>
 
-  <body>
-    <h1>LOGIN</h1>
+  <body class = "center-screen">
+    <main class="auth-card">
+    <h1 class="title">LOGIN</h1>
     <form method="POST">
       <input type="text" placeholder="Username" name="name">
       <input type="password" placeholder="Password" name="password">
@@ -86,5 +87,6 @@
       <input type="submit" value="Enter">
     </form>
     <p id="errortag">{{errorS}}</p> 
+  </main>
   </body>
 </html>

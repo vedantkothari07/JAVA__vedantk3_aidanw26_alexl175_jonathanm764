@@ -166,6 +166,68 @@ def computeRisk(user_doc):
 
     return points, category
 
+def risk_factor_percentages(user_doc):
+    #{ "BMI": 26.67, "FAMILY_HISTORY": 20.0, ... }   
+    #labels = keys, values = dict.values()
+    
+    if not user_doc:
+        return {}
+
+    pts = {}                           
+
+    def add(label, n):
+        if n > 0: 
+            pts[label] = pts.get(label, 0) + n
+
+    d = user_doc.get("demographics", {})
+    l = user_doc.get("lifestyle", {})
+
+    h, w = d.get("height_m", 0), d.get("weight_kg", 0)
+    bmi = w / (h*h) if h else 0
+    add("BMI", 0 if bmi < 25 else 2 if bmi < 30 else 4 if bmi < 35 else 6 if bmi < 40 else 8)
+
+    age = d.get("age", 0)
+    add("AGE", 2 if age >= 40 else 1 if age >= 30 else 0)
+
+    if d.get("gender", "").lower() == "male":
+        add("MALE SEX", 1)
+
+    if user_doc.get("family_history_overweight"):
+        add("FAMILY HISTORY", 3)
+
+    if l.get("high_calorie_food"):
+        add("HIGH‑CAL FOOD", 2)
+
+    vf = l.get("veggie_freq", 0)
+    add("LOW VEGGIES", 2 if vf < 1 else 1 if vf < 2 else 0)
+
+    if l.get("meals_per_day", 0) < 3:
+        add("<3 MEALS", 1)
+
+    snack = l.get("between_meals", "").lower()
+    add("SNACKING", 2 if snack == "always" else 1 if snack == "frequently" else 0)
+
+    h2o = l.get("water_litres", 0)
+    add("LOW WATER", 2 if h2o < 1 else 1 if h2o < 2 else 0)
+
+    if l.get("physical_activity", 0) <= 0:
+        add("NO EXERCISE", 3)
+
+    tu = l.get("tech_use", 0)
+    add("SCREEN TIME", 2 if tu > 4 else 1 if tu > 2 else 0)
+
+    cb = l.get("caloric_beverages", "").lower()
+    add("SUGARY/ALC DRINKS", 2 if cb == "frequently" else 1 if cb == "sometimes" else 0)
+
+    if l.get("transport", "").lower() not in ("walking", "bike"):
+        add("INACTIVE TRANSPORT", 1)
+
+    total = sum(pts.values())
+    if not total:
+        return {}
+
+    return {k: round(v * 100 / total, 2) for k, v in pts.items()}
+
 '''
 def import_obesity_csv(csv_path: str = "ObesityDataSet_raw_and_data_sinthetic.csv"):
     docs = []
