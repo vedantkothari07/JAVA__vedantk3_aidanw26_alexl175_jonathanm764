@@ -4,18 +4,67 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>HOMEPAGE</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+  <script src="https://d3js.org/d3.v7.min.js"></script>
+  <script src="https://d3js.org/topojson.v3.min.js"></script>
 </head>
 <body>
-  <h1>Hello, {{username}}! This is the Dashboard.</h1>
-  <form action="{{ url_for('logout') }}" method="post">
-    <button type="submit" class="btn">GET ME OUT OF HERE</button>
-  </form>
-  <form action="{{ url_for('predict') }}" method="post">
-    <button type="submit">Predict</button>
-  </form>
+  <nav class="navbar">
+    <span class="brand">Hello, {{username}}! This is the Dashboard.</span>
+    <form action="{{ url_for('logout') }}" method="post">
+      <button type="submit" class="btn logout">GET ME OUT OF HERE</button>
+    </form>
+  </nav>
+  
   {% if risk_info %}
-    <p>points: {{ risk_info.points }}</p>
-    <p>category: {{ risk_info.category }}</p>
+    <div class="alert">
+      Obesity‑risk score: <strong>{{ risk_info.points }}</strong> –
+      Category: <strong>{{ risk_info.category }}</strong>
+    </div>
   {% endif %}
+  
+  <form action="{{ url_for('predict') }}" method="post" class="centered">
+    <button class="btn" type="submit">Predict</button>
+  </form>
+
+  <main class="dashboard">
+    <!--states-->
+    <section id="map-container" class="card">
+      <h2>U.S. Adult Obesity % (click a state)</h2>
+      <div id="map"></div>
+    </section>
+
+    <!--bar race-->
+    <section class="card">
+      <h2>Global Obesity Bar‑Race</h2>
+
+      <div id="animation-controls">
+        <button id="play" class="btn">Play</button>
+        <button id="pause" class="btn">Pause</button>
+        <button id="restart" class="btn">Restart</button>
+
+        <label>
+          Top
+          <input id="country-count" type="number" value="12" min="5" max="20">
+          countries
+        </label>
+      </div>
+
+      <div id="chart-container"></div>
+    </section>
+  </main>
+  <button id="hahahahaha-button" class="hidden"></button>
+  <button id="hehehe-button" class="hidden"></button>
+  <button id="show-chart" class="hidden"></button>
+  <button id="hide-chart" class="hidden"></button>
+  <button id="reset-chart" class="hidden"></button>
+  <script src="{{ url_for('static', filename='chart.js') }}"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      if (typeof drawMap === 'function') drawMap();
+      if (typeof initObesityChart === 'function') initObesityChart();
+    });
+  </script>
+
 </body>
 </html>

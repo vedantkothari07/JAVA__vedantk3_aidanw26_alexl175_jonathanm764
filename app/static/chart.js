@@ -124,6 +124,15 @@ document.getElementById("reset-chart").addEventListener("click", () => {
         running = false;
         currentFrame = 0;
         svg.selectAll("*").remove();
+        n = parseInt(document.getElementById("country-count").value) || 12; //read top-n value
+        y.domain(d3.range(n + 1)) //update y scale for new n
+          .rangeRound([
+            margin.top,
+            margin.top + barSize * (n + 1 + 0.1)
+          ]);
+        const newHeight = margin.top + barSize * n + margin.bottom; //resize svg
+        svg.attr("viewBox", [0, 0, width, newHeight])
+          .attr("height", newHeight);
         generateKeyframes();
         updateBars = bars(svg);
         updateAxis = axis(svg);

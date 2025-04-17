@@ -1,3 +1,85 @@
+body {
+  margin: 0;
+  font-family: sans-serif;
+  background: #f5f7fa;
+  color: #333;
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.75rem 1rem;
+  background: #374151;
+  color: #ffffff;
+}
+
+.brand {
+  font-weight: 600;
+}
+
+.btn {
+  background: #10b981;
+  color: #ffffff;
+  border: none;
+  padding: 0.4rem 0.8rem;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.btn:hover {
+  opacity: 0.92;
+}
+
+.btn.logout {
+  background: #ef4444;
+}
+
+.dashboard {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  padding: 1rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.card {
+  background: #ffffff;
+  border-radius: 8px;
+  padding: 1rem;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+}
+
+.card h2 {
+  margin-top: 0;
+  font-size: 1.1rem;
+}
+
+.alert {
+  max-width: 600px;
+  margin: 1rem auto;
+  padding: 0.75rem;
+  background: #fef3c7;
+  color: #92400e;
+  border-radius: 6px;
+  text-align: center;
+}
+
+.centered {
+  text-align: center;
+  margin: 0.5rem 0 1rem;
+}
+
+.hidden {
+  display: none;
+}
+
+svg {
+  max-width: 100%;
+  height: auto;
+}
+
 form label,
 form input,
 form select {

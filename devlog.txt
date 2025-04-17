@@ -31,29 +31,33 @@ aidanW -- 2024-04-07 21:00
 vedantK -- 2025-04-09 10:49
 * Created visualizations and predictions templates
 
-aidanW -- 2024-04-09 10:53
+aidanW -- 2025-04-09 10:53
 * Moved template files to correct location
 
-alexL -- 2024-04-09 21:00
+alexL -- 2025-04-09 21:00
 * added point system to do risk assessment for obesity 
 * added form for user input on obesity records and db function to store
 
-aidanW -- 2024-04-09 22:00
+aidanW -- 2025-04-09 22:00
 DESIGN REVISIONS THUS FAR:
 ------------------------------------
 1. Added additional dataset for state data
 
 ====================================
 
-aidanW -- 2024-04-10 11:00
+aidanW -- 2025-04-10 11:00
 * Fixed site running on droplet
 * Added D3 Visulization testing to droplet url
 
-aidanW -- 2024-04-11 21:20
+aidanW -- 2025-04-11 21:20
 * Implemented Top 25 obesity percentage animated bar graph race in "/visualize"
 
-aidanW -- 2024-04-13 12:45
+aidanW -- 2025-04-13 12:45
 * Made obesity percentage animated bar graph race dynamic in size through user input
 
-aidanW -- 2024-04-13 15:32
+aidanW -- 2025-04-13 15:32
 * Created animated and interactable US map with obesity percentages
+
+alexL -- 2025-04-16 23:00
+* added css and charts onto home.html
+* fixed graph resizing 
