@@ -14,12 +14,17 @@ hahaBtn.addEventListener("click", () => {
   }
 });
 
+let chartDrawn = false;
+
 document.getElementById("show-chart").addEventListener("click", () => {
+  if (!chartDrawn) {
+    initObesityChart();
+    chartDrawn = true;
+  }
   document.getElementById("chart-container").style.display = "block";
   document.getElementById("animation-controls").style.display = "block";
-  initObesityChart();
 });
-  
+
 document.getElementById("hide-chart").addEventListener("click", () => {
   document.getElementById("chart-container").style.display = "none";
   document.getElementById("animation-controls").style.display = "none";
@@ -32,10 +37,18 @@ document.getElementById("reset-chart").addEventListener("click", () => {
   document.getElementById("animation-controls").style.display = "block";
   initObesityChart();
 });
+
+let duration = 250;
+
+document.getElementById("speed-slider").addEventListener("input", (e) => {
+  const speedFactor = +e.target.value;
+  duration = 250 / (speedFactor / 2); 
+  document.getElementById("speed-value").textContent = `x${speedFactor}`;
+});
   
   function initObesityChart() {
     // Chart settings
-    const width = 960, barSize = 48, duration = 250, k = 10;
+    const width = 960, barSize = 48, k = 10;
     let n = parseInt(document.getElementById("country-count").value);
     const margin = { top: 16, right: 6, bottom: 6, left: 0 };
     const formatNumber = d3.format(",d");

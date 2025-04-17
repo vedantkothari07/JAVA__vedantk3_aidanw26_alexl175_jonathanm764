@@ -87,7 +87,12 @@ def predict():
 
 @app.route("/visualize")
 def visualize():
-    return render_template("visualizations.html")
+    if 'username' not in session:
+        return redirect(url_for('auth'))
+
+    user_doc = dbFunctions.getUser(session['username'])
+    print(user_doc)
+    return render_template("visualizations.html", user_data=user_doc)
 
 @app.route("/data")
 def data():
@@ -98,6 +103,22 @@ def state_values():
     data = dbFunctions.get_state_data()
     print(jsonify(data))
     return jsonify(data)
+
+@app.route("/api/risk-factors", methods=["GET"])
+def user_risk_factors():
+    if 'username' in session:
+        user_doc = dbFunctions.getUser(session['username'])
+        percentages = dbFunctions.risk_factor_percentages(user_doc)
+        return jsonify([{"name": k, "value": v} for k, v in percentages.items()])
+    return jsonify({"error": "Not logged in"}), 401
+
+
+
+@app.route('/simulate', methods=['POST'])
+def simulate():
+    user_doc = request.get_json()
+    percentages = dbFunctions.risk_factor_percentages(user_doc)
+    return jsonify([{"name": k, "value": v} for k, v in percentages.items()])
 
 if __name__ == "__main__":
     app.debug = True

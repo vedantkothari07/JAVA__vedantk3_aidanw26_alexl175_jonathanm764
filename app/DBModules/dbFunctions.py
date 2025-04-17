@@ -332,3 +332,35 @@ def get_state_data():
     # Normalize state name
     result = [{"state": d["state"].strip().lower(), "obesity": d["obesity"]} for d in data]
     return result
+
+def get_user_risk_factors(username):
+    user = getUser(username)
+    if not user:
+        return {}
+
+    # Unpack fields
+    demo = user.get("demographics", {})
+    life = user.get("lifestyle", {})
+    family_history = user.get("family_history_overweight", False)
+
+    # Create input dict for risk factor calculator
+    user_data = {
+        "age": demo.get("age", 0),
+        "gender": demo.get("gender", "Male"),
+        "height_m": demo.get("height_m", 1.0),
+        "weight_kg": demo.get("weight_kg", 1.0),
+        "caloric_beverages": life.get("caloric_beverages", "Sometimes"),
+        "high_calorie_food": life.get("high_calorie_food", False),
+        "veggie_freq": life.get("veggie_freq", 0),
+        "meals_per_day": life.get("meals_per_day", 3),
+        "calorie_monitor": life.get("calorie_monitor", False),
+        "smokes": life.get("smokes", False),
+        "water_litres": life.get("water_litres", 0),
+        "physical_activity": life.get("physical_activity", 0),
+        "tech_use": life.get("tech_use", 0),
+        "between_meals": life.get("between_meals", "Sometimes"),
+        "transport": life.get("transport", "Walking"),
+        "family_history_overweight": family_history
+    }
+
+    return risk_factor_percentages(user_data)

@@ -50,6 +50,10 @@
       <button id="show-chart">Show Chart</button>
       <button id="hide-chart">Hide Chart</button>
       <button id="reset-chart">Reset Chart</button>
+      <div style="margin-top: 10px;">
+        <input type="range" id="speed-slider" min="1" max="10" step="1" value="1">
+        <span id="speed-value">x1</span>
+      </div>
       <div id="animation-controls" style="margin-top: 10px; display: none;">
         <button id="play">Play</button>
         <button id="pause">Pause</button>
@@ -67,8 +71,52 @@
 
   <div id="map"></div>
 
-  <!-- Chart logic -->
+   <!-- === Risk Factor Simulator === -->
+   <section id="risk-sim">
+    <div id="risk-controls">
+      <h3>Simulate Your Risk Factors</h3>
+      <label>Age:
+        <input type="number" id="age" value="{{ user_data.demographics.age or '' }}" min="0">
+      </label>
+      <label>Gender:
+        <select id="gender">
+          <option value="male" {% if user_data.demographics.gender == "male" %}selected{% endif %}>Male</option>
+          <option value="female" {% if user_data.demographics.gender == "female" %}selected{% endif %}>Female</option>
+        </select>
+      </label>
+      <label>Weight (kg):
+        <input type="number" id="weight" value="{{ user_data.demographics.weight_kg or '' }}" min="0">
+      </label>
+      <label>Height (m):
+        <input type="number" id="height" value="{{ user_data.demographics.height_m or '' }}" step="0.01" min="0">
+      </label>
+      <label>Exercise (hrs/week):
+        <input type="number" id="exercise" value="{{ user_data.lifestyle.physical_activity or '' }}" min="0">
+      </label>
+      <label>Screen Time (hrs/day):
+        <input type="number" id="screen" value="{{ user_data.lifestyle.tech_use or '' }}" min="0">
+      </label>
+      <label>Veggie servings/day:
+        <input type="number" id="veggies" value="{{ user_data.lifestyle.veggie_freq or '' }}" step="0.1" min="0">
+      </label>
+      <label>Water intake (L/day):
+        <input type="number" id="water" value="{{ user_data.lifestyle.water_litres or '' }}" step="0.1" min="0">
+      </label>
+      <label>Transport:
+        <select id="transport">
+          <option value="car" {% if user_data.lifestyle.transport == "car" %}selected{% endif %}>Car</option>
+          <option value="walking" {% if user_data.lifestyle.transport == "walking" %}selected{% endif %}>Walking</option>
+          <option value="bike" {% if user_data.lifestyle.transport == "bike" %}selected{% endif %}>Bike</option>
+        </select>
+      </label>
+      <button id="simulate">Simulate</button>
+    </div>
+    <div id="risk-chart"></div>
+  </section>
   
+
+  
+  <script src="{{ url_for('static', filename='risk_chart.js') }}"></script>
   <script src="{{ url_for('static', filename='chart.js') }}"></script>
 </body>
 </html>
