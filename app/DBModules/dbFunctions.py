@@ -364,3 +364,83 @@ def get_user_risk_factors(username):
     }
 
     return risk_factor_percentages(user_data)
+
+def get_avg():
+    total_users = users.count_documents({})
+
+    if total_users == 0:
+        return {}
+
+    #gets averages for numeric fields
+    avg_pipeline = [
+        {
+            "$project": {
+                "age": "$demographics.age",
+                "height_m": "$demographics.height_m",
+                "weight_kg": "$demographics.weight_kg",
+                "veggie_freq": "$lifestyle.veggie_freq",
+                "meals_per_day": "$lifestyle.meals_per_day",
+                "water_litres": "$lifestyle.water_litres",
+                "physical_activity": "$lifestyle.physical_activity",
+                "tech_use": "$lifestyle.tech_use"
+            }
+        },
+        {
+            #gets a ratio for non numeric fields
+            "$group": {
+                "_id": None,
+                "avg_age": {"$avg": "$age"},
+                "avg_height_m": {"$avg": "$height_m"},
+                "avg_weight_kg": {"$avg": "$weight_kg"},
+                "avg_veggie_freq": {"$avg": "$veggie_freq"},
+                "avg_meals_per_day": {"$avg": "$meals_per_day"},
+                "avg_water_litres": {"$avg": "$water_litres"},
+                "avg_physical_activity": {"$avg": "$physical_activity"},
+                "avg_tech_use": {"$avg": "$tech_use"},
+            }
+        }
+    ]
+
+    numeric_result = list(users.aggregate(avg_pipeline))[0]
+
+    # Count categorical/boolean values
+    count = [
+        {
+            "$group": {
+                "_id": None,
+                "high_calorie_food_count": {"$sum": {"$cond": ["$lifestyle.high_calorie_food", 1, 0]}},
+                "calorie_monitor_count": {"$sum": {"$cond": ["$lifestyle.calorie_monitor", 1, 0]}},
+                "smokes_count": {"$sum": {"$cond": ["$lifestyle.smokes", 1, 0]}},
+            }
+        }
+    ]
+
+    result = list(users.aggregate(count))[0]
+
+    # Group by caloric_beverages frequency
+    bev = [
+        {
+            "$group": {
+                "_id": "$lifestyle.caloric_beverages",
+                "count": {"$sum": 1}
+            }
+        }
+    ]
+
+    bev_result = list(users.aggregate(bev))
+    caloric_beverages_ratios = {
+        item["_id"]: round(item["count"] / total_users * 100, 2)
+        for item in bev_result
+    }
+
+    # Compile final result
+    return {
+        "averages": {k.replace("avg_", ""): round(v, 2) for k, v in numeric_result.items() if k != "_id"},
+        "ratios": {
+            "high_calorie_food": round(result["high_calorie_food_count"] / total_users * 100, 2),
+            "calorie_monitor": round(result["calorie_monitor_count"] / total_users * 100, 2),
+            "smokes": round(result["smokes_count"] / total_users * 100, 2),
+            "caloric_beverages": caloric_beverages_ratios
+        },
+        "total_users": total_users
+    }
