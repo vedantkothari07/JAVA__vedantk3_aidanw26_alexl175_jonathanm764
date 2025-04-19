@@ -7,7 +7,7 @@ Time Spent: 1
 '''
 
 from flask import Flask, render_template, url_for, session, request, redirect, jsonify
-from app.DBModules import dbFunctions
+from DBModules import dbFunctions
 import os
 
 
@@ -20,7 +20,7 @@ dbFunctions.initDB()
 @app.route("/", methods=['GET', 'POST'])
 def home():
     if 'username' in session:
-        return render_template('home.html', username=session['username'], risk_info=session.pop('risk_info', None))
+        return render_template('home.html', username=session['username'])
     return redirect(url_for('auth'))
 
 @app.route("/auth", methods=['GET', 'POST'])
@@ -40,29 +40,7 @@ def auth():
         password = request.form.get('password')
 
         if not dbFunctions.registerUser(name, password):
-            return render_template('auth.html', errorS="USERNAME TAKEN")
-
-        user_data = {
-            "age": float(request.form.get("age", 0)),
-            "gender": request.form.get("gender", ""),
-            "height_m": float(request.form.get("height_m", 0)),
-            "weight_kg": float(request.form.get("weight_kg", 0)),
-            "caloric_beverages": request.form.get("caloric_beverages", "no"),
-            "high_calorie_food": (request.form.get("high_calorie_food") == "yes"),
-            "veggie_freq": float(request.form.get("veggie_freq", 0)),
-            "meals_per_day": float(request.form.get("meals_per_day", 0)),
-            "calorie_monitor": (request.form.get("calorie_monitor") == "yes"),
-            "smokes": (request.form.get("smokes") == "yes"),
-            "water_litres": float(request.form.get("water_litres", 0)),
-            "physical_activity": float(request.form.get("physical_activity",0)),
-            "tech_use": float(request.form.get("tech_use", 0)),
-            "between_meals": request.form.get("between_meals", "no"),
-            "transport": request.form.get("transport", "Other"),
-            "family_history_overweight": (request.form.get("family_history_overweight") == "yes"),
-        }
-
-        dbFunctions.storeUser(name, user_data)
-
+            return render_template('auth.html', errorS="USERNAME TAKEN")    
         session['username'] = name
         return redirect(url_for('home'))
 
@@ -75,15 +53,9 @@ def logout():
 
 @app.route('/predict', methods=['POST'])
 def predict():
-    if 'username' in session:
-        username = session['username']
-        user_doc = dbFunctions.getUser(username)
-        points, category = dbFunctions.computeRisk(user_doc)
-        session['risk_info'] = {
-            "points": points,
-            "category": category
-        }
-    return redirect(url_for('home'))
+    if 'username' not in session:
+        return redirect(url_for('auth'))
+    return redirect(url_for('profile'))
 
 @app.route("/visualize")
 def visualize():
@@ -108,17 +80,68 @@ def state_values():
 def user_risk_factors():
     if 'username' in session:
         user_doc = dbFunctions.getUser(session['username'])
+        if not user_doc.get("demographics"):
+            return jsonify([])
         percentages = dbFunctions.risk_factor_percentages(user_doc)
         return jsonify([{"name": k, "value": v} for k, v in percentages.items()])
     return jsonify({"error": "Not logged in"}), 401
-
-
 
 @app.route('/simulate', methods=['POST'])
 def simulate():
     user_doc = request.get_json()
     percentages = dbFunctions.risk_factor_percentages(user_doc)
     return jsonify([{"name": k, "value": v} for k, v in percentages.items()])
+
+@app.route("/profile", methods=["GET", "POST"])
+def profile():
+    if "username" not in session:
+        return redirect(url_for("auth"))
+
+    username = session["username"]
+
+    if request.method == "POST":
+        user_data = {
+            "age": float(request.form.get("age", 0)),
+            "gender": request.form.get("gender", ""),
+            "height_m": float(request.form.get("height_m", 0)),
+            "weight_kg": float(request.form.get("weight_kg", 0)),
+            "caloric_beverages": request.form.get("caloric_beverages", "no"),
+            "high_calorie_food": (request.form.get("high_calorie_food") == "yes"),
+            "veggie_freq": float(request.form.get("veggie_freq", 0)),
+            "meals_per_day": float(request.form.get("meals_per_day", 0)),
+            "calorie_monitor": (request.form.get("calorie_monitor") == "yes"),
+            "smokes": (request.form.get("smokes") == "yes"),
+            "water_litres": float(request.form.get("water_litres", 0)),
+            "physical_activity": float(request.form.get("physical_activity", 0)),
+            "tech_use": float(request.form.get("tech_use", 0)),
+            "between_meals": request.form.get("between_meals", "no"),
+            "transport": request.form.get("transport", "Other"),
+            "family_history_overweight": (request.form.get("family_history_overweight") == "yes"),
+        }
+        dbFunctions.storeUser(username, user_data)
+
+    user_doc = dbFunctions.getUser(username)
+    risk_info = None
+    recommendations = []
+
+    if user_doc.get("demographics"):
+        points, category = dbFunctions.computeRisk(user_doc)
+        pcts = dbFunctions.risk_factor_percentages(user_doc)
+
+        def top3_with_tips(p):
+            TIP_MAP = {
+                "BMI": "try a calorie‑controlled diet and daily walks.",
+                "FAMILY HISTORY": "schedule yearly BMI checks and seek diet advice.",
+                "LOW VEGGIES": "add one veggie serving to each meal.",
+                "NO EXERCISE": "start with 10‑minute brisk walks twice daily.",
+                "SUGARY/ALC DRINKS": "swap soda/alcohol for water."
+            }
+            top = sorted(p.items(), key=lambda kv: kv[1], reverse=True)[:3]
+            return [(k, v, TIP_MAP.get(k, "consult a professional")) for k, v in top]
+
+        risk_info = {"points": points, "category": category}
+        recommendations = top3_with_tips(pcts)
+    return render_template("profile.html",username=username,user=user_doc,risk_info=risk_info,recommendations=recommendations)
 
 if __name__ == "__main__":
     app.debug = True

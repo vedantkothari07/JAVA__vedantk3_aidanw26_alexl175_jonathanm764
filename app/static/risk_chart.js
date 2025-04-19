@@ -51,6 +51,12 @@ function createChart(arc, pie, color, pathGroup, labelGroup, data) {
 
 async function drawRiskChart() {
   const data = await getChartData();
+  if (data.length === 0) {
+    d3.select("#risk-chart")
+      .append("p")
+      .text("enter info first");
+    return;
+  }
 
   const width = 400;
   const height = 400;

@@ -139,3 +139,18 @@ form select {
   width:100%;
   margin-top:.8rem;
 }
+
+.navbar a,
+.nav-link {
+  color: #ffffff;          
+  text-decoration: none; 
+  font-weight: 700;        
+  margin-left: 1rem;   
+  margin-right: auto;    
+  transition: opacity .15s ease-in-out;
+}
+
+.navbar a:hover,
+.nav-link:hover {
+  opacity: 0.75;                   
+}

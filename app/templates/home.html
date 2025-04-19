@@ -11,22 +11,12 @@
 <body>
   <nav class="navbar">
     <span class="brand">Hello, {{username}}! This is the Dashboard.</span>
+    <a class="nav-link" href="{{ url_for('profile') }}">Profile</a>
     <form action="{{ url_for('logout') }}" method="post">
       <button type="submit" class="btn logout">GET ME OUT OF HERE</button>
     </form>
   </nav>
   
-  {% if risk_info %}
-    <div class="alert">
-      Obesity‑risk score: <strong>{{ risk_info.points }}</strong> –
-      Category: <strong>{{ risk_info.category }}</strong>
-    </div>
-  {% endif %}
-  
-  <form action="{{ url_for('predict') }}" method="post" class="centered">
-    <button class="btn" type="submit">Predict</button>
-  </form>
-
   <main class="dashboard">
     <!--states-->
     <section id="map-container" class="card">
