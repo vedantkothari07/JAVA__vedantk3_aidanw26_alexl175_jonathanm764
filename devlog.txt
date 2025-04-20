@@ -62,6 +62,15 @@ alexL -- 2025-04-16 23:00
 * added css and charts onto home.html
 * fixed graph resizing 
 
+alexL -- 2025-04-17 12:00
+* added db function for donut chart so that each user can see his/her risk percentages 
+* updated css 
+
 aidanW -- 2025-04-17 17:24
 * Created speed slider for animated bar graph race
 * Created animated donut chart that draws data from usersdb and has filters to simulate future outcomes (for lifestyle changes)
+
+alexL -- 2025-04-19 18:12
+*added profile.html and moved user risk assesment there 
+*added donut chart to profile.html 
+*created db helper functions for radar map
