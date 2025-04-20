@@ -86,6 +86,18 @@ def user_risk_factors():
         return jsonify([{"name": k, "value": v} for k, v in percentages.items()])
     return jsonify({"error": "Not logged in"}), 401
 
+#[{"_id":"Normal_Weight","veggie_freq":val,"water_litres":val,"physical_activity":val,"tech_use":val,"meals_per_day":val,"high_calorie_food":val},{"_id":"Obesity_Type_I","veggie_freq":val,"water_litres":val,"physical_activity":val,"tech_use":val,"meals_per_day":val,"high_calorie_food":val}]
+@app.route("/api/radar")
+def api_radar():
+    classes = request.args.get("classes","").split(",")
+    cls = [c for c in classes if c] or ["Normal_Weight","Obesity_Type_I"]
+    return jsonify(dbFunctions.get_radar_stats(cls))
+
+#{"veggie_freq":{"min":val,"max":val},"water_litres":{"min":val,"max":val},"physical_activity":{"min":val,"max":val},"tech_use":{"min":val,"max":val},"meals_per_day":{"min":val,"max":val},"high_calorie_food":{"min":val,"max":val}}
+@app.route("/api/radar_axis")
+def api_radar_meta():
+    return jsonify(dbFunctions.get_radar_axis())
+
 @app.route('/simulate', methods=['POST'])
 def simulate():
     user_doc = request.get_json()

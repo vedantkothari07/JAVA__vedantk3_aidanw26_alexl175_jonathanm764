@@ -444,3 +444,52 @@ def get_avg():
         },
         "total_users": total_users
     }
+
+# returns one doc per obesity class with avg of six lifestyle mtrics
+def get_radar_stats(classes):
+    pipeline = [
+        {"$match": {"target": {"$in": classes}}},
+        {"$group": {
+            "_id": "$target",
+
+            "veggie_freq":       {"$avg": "$lifestyle.veggie_freq"},
+            "water_litres":      {"$avg": "$lifestyle.water_litres"},
+            "physical_activity": {"$avg": "$lifestyle.physical_activity"},
+            "tech_use":          {"$avg": "$lifestyle.tech_use"},
+            "meals_per_day":     {"$avg": "$lifestyle.meals_per_day"},
+            "high_calorie_food": {"$avg": {
+                "$cond": ["$lifestyle.high_calorie_food", 1, 0]
+            }}
+        }}
+    ]
+
+    docs = list(obesity_records.aggregate(pipeline))
+    for d in docs:                      
+        for i in ("veggie_freq","water_litres","physical_activity","tech_use","meals_per_day","high_calorie_food"):
+            d[i] = round(d[i], 2)
+    return docs
+
+
+def get_radar_axis():
+    axes = [
+        "veggie_freq",
+        "water_litres",
+        "physical_activity",
+        "tech_use",
+        "meals_per_day",
+        "high_calorie_food"
+    ]
+
+    axis = {}
+    for f in axes:
+        stats = next(obesity_records.aggregate([
+            {"$group": {
+                "_id": None,
+                "mn": {"$min": f"$lifestyle.{f}"},
+                "mx": {"$max": f"$lifestyle.{f}"}
+            }}
+        ]))        
+
+        axis[f] = {"min": stats["mn"], "max": stats["mx"]}
+
+    return axis
