@@ -74,3 +74,6 @@ alexL -- 2025-04-19 18:12
 *added profile.html and moved user risk assesment there 
 *added donut chart to profile.html 
 *created db helper functions for radar map
+
+aidanW -- 2025-04-20 21:26
+* Implemented radar map usiong helper functions
