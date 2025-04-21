@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Most prominent risk factors in our users</title>
+        <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    </head>
+    <body>
+        <header>
+            <!-- Allows flashing messages in the html -->
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    <div class="flash-messages">
+                    {% for category, message in messages %}
+                        <div class="flash-message {{ category }}">{{ message }}</div>
+                    {% endfor %}
+                    </div>
+                {% endif %}
+            {% endwith %}
+        </header>
+
+        <!-- Navbar -->
+        <nav class="navbar">
+            <ul>
+                <li><a href="{{ url_for('home') }}">Home🏠</a></li>
+                <li class="dropdown">
+                    <a href="javascript:void(0)" class="dropbtn">Games🎮▼</a>
+                    <!-- Dropdown -->
+                    <ul class="dropdown-content">
+                        <li><a href="{{ url_for('play_blackjack') }}">Blackjack <img src="{{ url_for('static', filename='images/blackjack.png') }}" class=blackjack-icon></a></li>
+                        <li><a href="{{ url_for('plinko') }}">Plinko🎲</a></li>
+                        <li><a href="{{ url_for('mines') }}">Mines💣</a></li>
+                    </ul>
+                </li>
+                <li><a href="{{ url_for('show_leaderboard') }}">Leaderboard🏆</a></li>
+
+                <!-- Username and signout button is signed in -->
+                {% if username %}
+                    <div class="welcome-container">
+                        <span class="welcome-message">Welcome, {{ username }}!</span>
+                        <a href="{{ url_for('logout') }}" class="signout-btn">Sign Out</a>
+                    </div>
+                {% endif %}
+            </ul>
+        </nav>
+
+        <!-- Leaderboard -->
+        <center><h1>Leaderboard</h1></center>
+        <table class="leaderboard-table">
+            <thead>
+                <tr>
+                    <th>Rank</th>
+                    <th>Username</th>
+                    <th>Balance</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for row in leaderboard %}
+                    {% if username %}
+                        {% if row['username'] == username%}
+                            <tr class='highlighted'>
+                        {% else %}
+                            <tr>
+                        {% endif %}
+                    {% else %}
+                        <tr>
+                    {% endif %}
+                        <td>{{ row['rank'] }}</td>
+                        <td>{{ row['username'] }}</td>
+                        <td>{{ row['balance'] }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </body>
+</html>
