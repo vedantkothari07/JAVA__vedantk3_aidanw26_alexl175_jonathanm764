@@ -7,15 +7,17 @@ async function fetchData() {
   }
   
   function drawRadarChart(data, axisMeta) {
+    d3.select("#radar").selectAll("*").remove();
     const features = Object.keys(axisMeta);
     const width = 600, height = 600;
     const margin = 60;
+    const full = width + margin * 2;
   
     const svg = d3.select("#radar").append("svg")
-      .attr("width", width + margin * 2)
-      .attr("height", height + margin * 2)
+      .attr("viewBox", `0 0 ${full} ${full}`) 
+      .style("width", "100%")                 
       .append("g")
-      .attr("transform", `translate(${(width / 2) + margin}, ${(height / 2) + margin})`);
+      .attr("transform", `translate(${full / 2},${full / 2})`);
   
     const radialScale = d3.scaleLinear()
       .domain([0, 1])

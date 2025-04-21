@@ -42,6 +42,12 @@
 
       <div id="chart-container"></div>
     </section>
+
+    <section class="card radar-card">
+      <h2>Obesity Lifestyle Radar</h2>
+      <div id="radar"></div>
+    </section>
+
   </main>
   <button id="hahahahaha-button" class="hidden"></button>
   <button id="hehehe-button" class="hidden"></button>
@@ -49,10 +55,12 @@
   <button id="hide-chart" class="hidden"></button>
   <button id="reset-chart" class="hidden"></button>
   <script src="{{ url_for('static', filename='chart.js') }}"></script>
+  <script src="{{ url_for('static', filename='radar.js') }}"></script>
   <script>
     document.addEventListener('DOMContentLoaded', () => {
       if (typeof drawMap === 'function') drawMap();
       if (typeof initObesityChart === 'function') initObesityChart();
+      if (typeof fetchData === 'function') fetchData();
     });
   </script>
 

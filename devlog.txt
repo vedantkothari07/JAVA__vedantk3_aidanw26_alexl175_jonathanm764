@@ -77,3 +77,6 @@ alexL -- 2025-04-19 18:12
 
 aidanW -- 2025-04-20 21:26
 * Implemented radar map usiong helper functions
+
+alexL -- 2025-04-20 22:30
+* added radar map to flask app w/ css
