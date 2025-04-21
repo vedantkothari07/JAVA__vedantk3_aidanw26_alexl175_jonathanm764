@@ -469,7 +469,6 @@ def get_radar_stats(classes):
             d[i] = round(d[i], 2)
     return docs
 
-
 def get_radar_axis():
     axes = [
         "veggie_freq",
