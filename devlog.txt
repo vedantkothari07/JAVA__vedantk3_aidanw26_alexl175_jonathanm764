@@ -80,3 +80,6 @@ aidanW -- 2025-04-20 21:26
 
 alexL -- 2025-04-20 22:30
 * added radar map to flask app w/ css
+
+vedantK -- 2025-04-21 10:58
+* Created beautiful. scintillating introductory paragraph on homepage
