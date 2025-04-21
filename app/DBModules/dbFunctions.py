@@ -492,3 +492,16 @@ def get_radar_axis():
         axis[f] = {"min": stats["mn"], "max": stats["mx"]}
 
     return axis
+
+def get_total_category_scores(users):
+    category_totals = {}
+
+    for user in users:
+        scores = computeRisk(user)
+        for category, points in scores.items():
+            if category in category_totals:
+                category_totals[category] += points
+            else:
+                category_totals[category] = points
+
+    return category_totals
