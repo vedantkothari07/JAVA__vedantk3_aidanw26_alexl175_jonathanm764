@@ -55,6 +55,48 @@ body {
   margin: 0 auto;
 }
 
+
+.stats-list {
+  list-style-type: none;
+  clear: left;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.stats-list .stats-list-positive {
+  color: #3adb76;
+}
+
+.stats-list .stats-list-negative {
+  color: #cc4b37;
+}
+
+.stats-list > li {
+  display: inline-block;
+  margin-right: 10px;
+  padding-right: 10px;
+  border-right: 1px solid #cacaca;
+  text-align: center;
+  font-size: 1.1em;
+  font-weight: bold;
+}
+
+.stats-list > li:last-child {
+  border: none;
+  margin: 0;
+  padding: 0;
+}
+
+.stats-list > li .stats-list-label {
+  display: block;
+  margin-top: 2px;
+  font-size: 0.9em;
+  font-weight: normal;
+}
+
+
 .card {
   background: #ffffff;
   border:2px solid #b91c1c;

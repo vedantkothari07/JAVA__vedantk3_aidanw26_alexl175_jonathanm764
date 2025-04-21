@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>HOMEPAGE</title>
   <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/foundation-sites@6.9.0/dist/css/foundation.min.css" crossorigin="anonymous">
   <script src="https://d3js.org/d3.v7.min.js"></script>
   <script src="https://d3js.org/topojson.v3.min.js"></script>
 </head>
@@ -16,6 +17,18 @@
       <button type="submit" class="btn logout">GET ME OUT OF HERE</button>
     </form>
   </nav>
+  <!--stats list-->
+  <ul class="stats-list">
+    <li>
+      135 <span class="stats-list-label">Commits</span>
+    </li>
+    <li class="stats-list-positive">
+      17,678 <span class="stats-list-label">Additions</span>
+    </li>
+    <li class="stats-list-negative">
+      2,390 <span class="stats-list-label">Deletions</span>
+    </li>
+  </ul>
   <h2>Over time, obesity has become a serious issue, especially in the United States. In fact, since 1975, global obesity rates have nearly tripled. To spread awareness, we created this website to extrapolate information from various datasets to graph and visualize obesity by state, country, and lifestyle. Our greater goal is to warn people about the rising danger of obesity and help them improve the quality of their life.</h2> 
   <main class="dashboard">
     <!--states-->
