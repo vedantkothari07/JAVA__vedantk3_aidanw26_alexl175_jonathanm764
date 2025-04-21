@@ -7,7 +7,7 @@ Time Spent: 1
 '''
 
 from flask import Flask, render_template, url_for, session, request, redirect, jsonify
-from app.DBModules import dbFunctions
+from DBModules import dbFunctions
 import os
 
 
@@ -154,6 +154,24 @@ def profile():
         risk_info = {"points": points, "category": category}
         recommendations = top3_with_tips(pcts)
     return render_template("profile.html",username=username,user=user_doc,risk_info=risk_info,recommendations=recommendations)
+
+@app.route("/bar_race")
+def bar_race():             
+    if 'username' not in session:
+        return redirect(url_for('auth'))
+    return render_template("bar_race.html", username=session['username'])
+
+@app.route("/map")
+def map():                  
+    if 'username' not in session:
+        return redirect(url_for('auth'))
+    return render_template("map.html", username=session['username'])
+
+@app.route("/radar")
+def radar():                
+    if 'username' not in session:
+        return redirect(url_for('auth'))
+    return render_template("radar.html", username=session['username'])
 
 if __name__ == "__main__":
     app.debug = True

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BAR RACE</title>
+
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+  <script src="https://d3js.org/d3.v7.min.js"></script>
+</head>
+<body>
+  <nav class="navbar">
+    <span class="brand">BAR RACE</span>
+
+    <a class="nav-link" href="{{ url_for('home') }}">HOME</a>
+    <a class="nav-link" href="{{ url_for('map') }}">US MAP</a>
+    <a class="nav-link" href="{{ url_for('radar') }}">RADAR</a>
+    <a class="nav-link" href="{{ url_for('profile') }}">PROFILE</a>
+    <a class="nav-link" href="{{ url_for('bar_race') }}">BAR RACE</a>
+
+    <form action="{{ url_for('logout') }}" method="post" style="margin-left:auto;">
+      <button class="btn logout">LOG OUT</button>
+    </form>
+  </nav>
+
+  <div id="chart-wrapper" style="display:block;">
+    <main class="card" style="max-width:980px;margin:1rem auto;">
+      <h2>GLOBAL OBESITY BAR RACE</h2>
+
+      <div class="centered" style="margin-top:.5rem;">
+        <input type="range" id="speed-slider" min="1" max="10" step="1" value="1">
+        <span id="speed-value">x1</span>
+      </div>
+
+      <div id="animation-controls" class="centered" style="margin:.5rem 0;">
+        <button id="play" class="btn">Play</button>
+        <button id="pause"class="btn">Pause</button>
+        <button id="restart"class="btn">Restart</button>
+        <label style="margin-left:1rem;">
+          Top <input id="country-count" type="number" value="12" min="5" max="20"> countries
+        </label>
+      </div>
+
+      <div id="chart-container"></div>
+
+    </main>
+  </div>
+
+  <button id="hahahahaha-button" class="hidden"></button>
+  <button id="show-chart" class="hidden"></button>
+  <button id="hide-chart" class="hidden"></button>
+  <button id="reset-chart" class="hidden"></button>
+
+  <script src="{{ url_for('static', filename='chart.js') }}"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', initObesityChart);
+  </script>
+
+</body>
+</html>
