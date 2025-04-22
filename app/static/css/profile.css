@@ -1,0 +1,37 @@
+.flex-container {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 2rem;
+    flex-wrap: wrap;
+    margin: 1rem;
+}
+  
+.form-section {
+  max-width: 400px;
+  flex: 1;
+}
+  
+.chart-section {
+  max-width: 600px;
+  flex: 1;
+}
+
+.btn.predict {
+  background-color: #b91c1c;
+  margin-top: 1rem;
+  color: #ffffff;
+  border: 2px solid #b91c1c;
+  font-weight: 700;
+  padding: 0.6rem 1.2rem;
+  font-size: 1rem;
+  border-radius: 8px;
+  transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
+}
+  
+.btn.predict:hover {
+  background-color: #ffffff;
+  color: #b91c1c;
+  border-color: #b91c1c;
+}
+  

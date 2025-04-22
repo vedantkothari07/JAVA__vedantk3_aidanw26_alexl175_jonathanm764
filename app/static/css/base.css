@@ -1,0 +1,23 @@
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@400;700&display=swap');
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family:'Oswald',sans-serif;
+  text-transform: uppercase;
+  background: #ffffff;
+  color: #b91c1c;
+}
+
+h2 {
+  font-family:'Oswald',sans-serif !important;
+  text-transform: uppercase !important;
+  color: #b91c1c !important;
+}
+
+svg {
+  max-width: 100%;
+  height: auto;
+}
+

@@ -4,7 +4,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>PROFILE</title>
-  <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/base.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/components.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/profile.css') }}">  
   <script src="https://d3js.org/d3.v7.min.js"></script>
   <style>
     .flex-container {
@@ -29,14 +31,15 @@
 </head>
 <body>
   <nav class="navbar">
-    <span class="brand">Hello, {{username}}! This is the profile.</span>
-    <a class="nav-link" href="{{ url_for('home') }}">HOME</a>
+    <a class="brand" href="{{ url_for('home') }}">RSObesity</a>
+    
+    <a class="nav-link" href="{{ url_for('profile') }}">PROFILE</a>
     <a class="nav-link" href="{{ url_for('map') }}">US MAP</a>
     <a class="nav-link" href="{{ url_for('radar') }}">RADAR</a>
-    <a class="nav-link" href="{{ url_for('profile') }}">PROFILE</a>
     <a class="nav-link" href="{{ url_for('bar_race') }}">BAR RACE</a>
     <a class="nav-link" href="{{ url_for('leaderboard') }}">LEADERBOARD</a>
-    <form action="{{ url_for('logout') }}" method="post">
+  
+    <form action="{{ url_for('logout') }}" method="post" style="margin-left:auto;">
       <button type="submit" class="btn logout">GET ME OUT OF HERE</button>
     </form>
   </nav>
@@ -113,7 +116,7 @@
         <option value="yes">Yes</option>
         <option value="no" selected>No</option>
       </select>
-      <button class="btn" type="submit">PREDICT</button>
+      <button class="btn predict" type="submit">PREDICT</button>
     </form>
 
     <section class="card chart-section">
@@ -131,6 +134,6 @@
     </section>
   </div>
 
-  <script src="{{ url_for('static', filename='risk_chart.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/risk_chart.js') }}"></script>
 </body>
 </html>

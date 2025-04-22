@@ -98,6 +98,18 @@ def api_radar():
 def api_radar_meta():
     return jsonify(dbFunctions.get_radar_axis())
 
+@app.route("/api/user_risk", methods=["GET"])
+def user_risk():
+    if "username" not in session:
+        return jsonify({"error": "Not logged in"}), 401
+
+    user_doc = dbFunctions.getUser(session["username"])
+    if not user_doc:
+        return jsonify({"error": "User not found"}), 404
+
+    percentages = dbFunctions.risk_factor_percentages(user_doc)
+    return jsonify(percentages)
+
 @app.route('/simulate', methods=['POST'])
 def simulate():
     user_doc = request.get_json()
@@ -173,19 +185,10 @@ def radar():
         return redirect(url_for('auth'))
     return render_template("radar.html", username=session['username'])
 
-@app.route("/leaderboard")
+@app.route("/risk_leaderboard")
 def leaderboard():
-    # This function should return a list of user dicts with keys like 'username' and 'balance'
-    leaderboard_data = dbFunctions.get_total_category_scores()
-
-    # Assuming you have a current user (e.g., from Flask-Login or session)
-    username = session.get('username')
-
-    return render_template(
-        "leaderboard.html",
-        leaderboard=leaderboard_data,
-        username=username
-    )
+    sorted_factors = dbFunctions.get_lifestyle_risk_leaderboard()
+    return render_template("leaderboard.html", factors=sorted_factors, username=session.get("username"))
 
 
 if __name__ == "__main__":

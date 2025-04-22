@@ -1,0 +1,32 @@
+.center-screen {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: #f6f6f6;
+  }
+  
+  .auth-card {
+    width: 340px;
+    padding: 2rem 2.25rem;
+    background: #ffffff;
+    border: 2px solid #b91c1c;
+    border-radius: 10px;
+    box-shadow: 0 6px 18px rgba(0,0,0,.10);
+  }
+  
+  .auth-card h1 {
+    margin: 0 0 1rem;
+    font-size: 1.75rem;
+    text-align: center;
+    color: #b91c1c;
+  }
+  
+  .auth-card form {
+    margin-bottom: 1.5rem;
+  }
+  
+  .auth-card input[type="submit"] {
+    width: 100%;
+    margin-top: .8rem;
+  }

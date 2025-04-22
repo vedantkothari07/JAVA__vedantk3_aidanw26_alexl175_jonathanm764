@@ -4,16 +4,24 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>HOMEPAGE</title>
-  <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/foundation-sites@6.9.0/dist/css/foundation.min.css" crossorigin="anonymous">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/base.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/components.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/home.css') }}">  
   <script src="https://d3js.org/d3.v7.min.js"></script>
   <script src="https://d3js.org/topojson.v3.min.js"></script>
 </head>
 <body>
   <nav class="navbar">
-    <span class="brand">Hello, {{username}}! This is the Dashboard.</span>
-    <a class="nav-link" href="{{ url_for('profile') }}">Profile</a>
-    <form action="{{ url_for('logout') }}" method="post">
+    <a class="brand" href="{{ url_for('home') }}">RSObesity</a>
+    
+    <a class="nav-link" href="{{ url_for('profile') }}">PROFILE</a>
+    <a class="nav-link" href="{{ url_for('map') }}">US MAP</a>
+    <a class="nav-link" href="{{ url_for('radar') }}">RADAR</a>
+    <a class="nav-link" href="{{ url_for('bar_race') }}">BAR RACE</a>
+    <a class="nav-link" href="{{ url_for('leaderboard') }}">LEADERBOARD</a>
+  
+    <form action="{{ url_for('logout') }}" method="post" style="margin-left:auto;">
       <button type="submit" class="btn logout">GET ME OUT OF HERE</button>
     </form>
   </nav>

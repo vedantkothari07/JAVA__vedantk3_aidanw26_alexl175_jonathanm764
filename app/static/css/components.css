@@ -1,0 +1,102 @@
+.navbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.75rem 1.25rem;
+  background-color: #b91c1c;
+  color: #ffffff;
+  gap: 1rem;
+}
+
+.brand {
+  font-weight: 700;
+  font-size: 1.4rem;
+  color: #ffffff;
+  text-decoration: none;
+  margin-right: 2rem;
+}
+
+.navbar a,
+.navbar .nav-link {
+  color: #ffffff;
+  text-decoration: none;
+  font-weight: 600;
+  padding: 0.5rem;
+  transition: opacity 0.2s ease;
+}
+
+.navbar a:hover,
+.navbar .nav-link:hover {
+  opacity: 0.75;
+}
+
+.navbar form {
+  margin-left: auto;
+}
+
+.btn.logout {
+  background-color: #ffffff;
+  color: #b91c1c;
+  border: 2px solid #ffffff;
+  padding: 0.4rem 0.75rem;
+  font-weight: 700;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+
+.btn.logout:hover {
+  background-color: #b91c1c;
+  color: #ffffff;
+  border-color: #ffffff;
+}
+
+  
+.card {
+  background: #ffffff;
+  border: 2px solid #b91c1c;
+  border-radius: 8px;
+  padding: 1rem;
+  box-shadow: 0 4px 10px rgba(0,0,0,.09);
+}
+  
+.card h2 {
+  margin-top: 0;
+  font-size: 1.1rem;
+}
+  
+.alert {
+  max-width: 600px;
+  margin: 1rem auto;
+  padding: 0.75rem;
+  background: #fee2e2;
+  color: #7f1d1d;
+  border: 2px solid #b91c1c;
+  border-radius: 6px;
+  text-align: center;
+}
+  
+.centered {
+  text-align: center;
+  margin: 0.5rem 0 1rem;
+}
+  
+.hidden {
+  display: none;
+}
+  
+form label {
+  display: block;
+  margin: .6rem 0 .3rem;
+}
+  
+form input,
+form select {
+  width: 100%;
+  padding: .45rem .6rem;
+  border: 2px solid #b91c1c;
+  border-radius: 6px;
+  background: #fff;
+  color: #b91c1c; 
+}

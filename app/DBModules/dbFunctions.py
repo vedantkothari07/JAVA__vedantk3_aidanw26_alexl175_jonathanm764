@@ -1,5 +1,6 @@
 import csv
 from pymongo import MongoClient, errors
+import numpy as np
 
 ############################# Build Database #############################
 
@@ -493,15 +494,41 @@ def get_radar_axis():
 
     return axis
 
-def get_total_category_scores(users):
-    category_totals = {}
+def get_lifestyle_risk_leaderboard():
+    all_users = list(users.find())
+    if not all_users:
+        return []
 
-    for user in users:
-        scores = computeRisk(user)
-        for category, points in scores.items():
-            if category in category_totals:
-                category_totals[category] += points
-            else:
-                category_totals[category] = points
+    lifestyle_keys = list(all_users[0]["lifestyle"].keys())
+    factor_impact = {}
 
-    return category_totals
+    for key in lifestyle_keys:
+        x = []
+        y = []
+        for user in all_users:
+            try:
+                lifestyle_val = float(user["lifestyle"][key])
+                height = float(user["demographics"]["height_m"])
+                weight = float(user["demographics"]["weight_kg"])
+                bmi = weight / (height ** 2)
+                x.append(lifestyle_val)
+                y.append(bmi)
+            except:
+                continue
+
+        if len(x) > 1:
+            correlation = np.corrcoef(x, y)[0, 1]
+            factor_impact[key] = abs(correlation)
+
+    sorted_factors = sorted(factor_impact.items(), key=lambda x: x[1], reverse=True)
+    return sorted_factors
+
+def get_user_risk_percentages(user_id):
+    """
+    Returns a dictionary of feature: risk_percentage for a given user.
+    """
+    user_data = users.find_one({"_id": user_id})
+    if not user_data or "risk_percentages" not in user_data:
+        return {}
+    
+    return user_data["risk_percentages"]

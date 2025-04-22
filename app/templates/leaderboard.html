@@ -1,76 +1,49 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <title>Most prominent risk factors in our users</title>
-        <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
-    </head>
-    <body>
-        <header>
-            <!-- Allows flashing messages in the html -->
-            {% with messages = get_flashed_messages(with_categories=true) %}
-                {% if messages %}
-                    <div class="flash-messages">
-                    {% for category, message in messages %}
-                        <div class="flash-message {{ category }}">{{ message }}</div>
-                    {% endfor %}
-                    </div>
-                {% endif %}
-            {% endwith %}
-        </header>
+<head>
+    <meta charset="UTF-8">
+    <title>Most Prominent Risk Factors in Our Users</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/base.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/components.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/leaderboard.css') }}">
+</head>
+<body>
 
-        <!-- Navbar -->
-        <nav class="navbar">
-            <ul>
-                <li><a href="{{ url_for('home') }}">Home🏠</a></li>
-                <li class="dropdown">
-                    <a href="javascript:void(0)" class="dropbtn">Games🎮▼</a>
-                    <!-- Dropdown -->
-                    <ul class="dropdown-content">
-                        <li><a href="{{ url_for('play_blackjack') }}">Blackjack <img src="{{ url_for('static', filename='images/blackjack.png') }}" class=blackjack-icon></a></li>
-                        <li><a href="{{ url_for('plinko') }}">Plinko🎲</a></li>
-                        <li><a href="{{ url_for('mines') }}">Mines💣</a></li>
-                    </ul>
-                </li>
-                <li><a href="{{ url_for('show_leaderboard') }}">Leaderboard🏆</a></li>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <a class="brand" href="{{ url_for('home') }}">RSObesity</a>
+        
+        <a class="nav-link" href="{{ url_for('profile') }}">PROFILE</a>
+        <a class="nav-link" href="{{ url_for('map') }}">US MAP</a>
+        <a class="nav-link" href="{{ url_for('radar') }}">RADAR</a>
+        <a class="nav-link" href="{{ url_for('bar_race') }}">BAR RACE</a>
+        <a class="nav-link" href="{{ url_for('leaderboard') }}">LEADERBOARD</a>
+      
+        <form action="{{ url_for('logout') }}" method="post" style="margin-left:auto;">
+          <button type="submit" class="btn logout">GET ME OUT OF HERE</button>
+        </form>
+      </nav>
 
-                <!-- Username and signout button is signed in -->
-                {% if username %}
-                    <div class="welcome-container">
-                        <span class="welcome-message">Welcome, {{ username }}!</span>
-                        <a href="{{ url_for('logout') }}" class="signout-btn">Sign Out</a>
-                    </div>
-                {% endif %}
-            </ul>
-        </nav>
-
-        <!-- Leaderboard -->
-        <center><h1>Leaderboard</h1></center>
+      <div class="leaderboard-container">
+        <h1>Top Lifestyle Risk Factors Impacting Obesity</h1>
         <table class="leaderboard-table">
             <thead>
                 <tr>
                     <th>Rank</th>
-                    <th>Username</th>
-                    <th>Balance</th>
+                    <th>Lifestyle Factor</th>
+                    <th>Impact Strength (correlation with BMI)</th>
                 </tr>
             </thead>
             <tbody>
-                {% for row in leaderboard %}
-                    {% if username %}
-                        {% if row['username'] == username%}
-                            <tr class='highlighted'>
-                        {% else %}
-                            <tr>
-                        {% endif %}
-                    {% else %}
-                        <tr>
-                    {% endif %}
-                        <td>{{ row['rank'] }}</td>
-                        <td>{{ row['username'] }}</td>
-                        <td>{{ row['balance'] }}</td>
-                    </tr>
+                {% for factor, score in factors %}
+                <tr class="{% if loop.index == 1 %}gold{% elif loop.index == 2 %}silver{% elif loop.index == 3 %}bronze{% endif %}">
+                    <td>{{ loop.index }}</td>
+                    <td>{{ factor.replace('_', ' ').title() }}</td>
+                    <td>{{ '%.3f' % score }}</td>
+                </tr>
                 {% endfor %}
             </tbody>
         </table>
-    </body>
+    </div>
+</body>
 </html>

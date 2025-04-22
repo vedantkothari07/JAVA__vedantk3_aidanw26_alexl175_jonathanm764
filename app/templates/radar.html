@@ -4,27 +4,31 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>RADAR</title>
-  <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/base.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/components.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/radar.css') }}">  
   <script src="https://d3js.org/d3.v7.min.js"></script>
   <script src="https://d3js.org/topojson.v3.min.js"></script>
 </head>
 <body>
   <nav class="navbar">
-    <span class="brand">RADAR</span>
-    <a class="nav-link" href="{{ url_for('home') }}">HOME</a>
+    <a class="brand" href="{{ url_for('home') }}">RSObesity</a>
+    
+    <a class="nav-link" href="{{ url_for('profile') }}">PROFILE</a>
     <a class="nav-link" href="{{ url_for('map') }}">US MAP</a>
     <a class="nav-link" href="{{ url_for('radar') }}">RADAR</a>
-    <a class="nav-link" href="{{ url_for('profile') }}">PROFILE</a>
     <a class="nav-link" href="{{ url_for('bar_race') }}">BAR RACE</a>
-    <form action="{{ url_for('logout') }}" method="post">
+    <a class="nav-link" href="{{ url_for('leaderboard') }}">LEADERBOARD</a>
+  
+    <form action="{{ url_for('logout') }}" method="post" style="margin-left:auto;">
       <button type="submit" class="btn logout">GET ME OUT OF HERE</button>
     </form>
   </nav>
   <main class="card radar-card" style="max-width:800px;margin:1rem auto;">
     <h2>OBESITY LIFESTYLE RADAR</h2>
-    <div id="radar"></div>
+    <div id="radar" data-username="{{ username }}"></div>
   </main>
-  <script src="{{ url_for('static', filename='radar.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/radar.js') }}"></script>
   <script>document.addEventListener('DOMContentLoaded', fetchData);</script>
 
 </body>

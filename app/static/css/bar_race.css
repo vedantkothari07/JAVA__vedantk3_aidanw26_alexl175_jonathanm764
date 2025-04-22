@@ -1,0 +1,95 @@
+#chart-wrapper {
+    display: block;
+  }
+  
+  #chart-container {
+    width: 100%;
+    overflow-x: auto;
+  }
+  
+  #speed-slider {
+    margin-right: 0.5rem;
+  }
+  
+  #animation-controls button,
+  #animation-controls label {
+    margin-right: 0.5rem;
+  }
+
+#chart-wrapper {
+  display: block;
+  padding: 1rem;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+#chart-container {
+  width: 100%;
+  overflow-x: auto;
+  padding: 1rem 0;
+}
+
+.bar-label {
+  font-size: 0.9rem;
+  font-weight: 600;
+  fill: #b91c1c;
+  text-anchor: end;
+}
+
+.bar {
+  fill: #b91c1c;
+  rx: 6; 
+  ry: 6;
+}
+
+.bar.top {
+  fill: #f59e0b; 
+}
+
+.axis text {
+  font-size: 0.85rem;
+  fill: #555;
+}
+
+.axis line,
+.axis path {
+  stroke: #ccc;
+}
+
+.bar,
+.bar-label {
+  transition: all 0.4s ease;
+}
+
+#animation-controls button {
+  margin: 0 0.5rem;
+  background: #ffffff;
+  border: 2px solid #b91c1c;
+  color: #b91c1c;
+  padding: 0.4rem 1rem;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+#animation-controls button:hover {
+  background: #b91c1c;
+  color: #ffffff;
+}
+
+.bar {
+  fill: #b91c1c;
+  rx: 6;
+  ry: 6;
+}
+
+.bar.top {
+  fill: #f59e0b; 
+}
+
+.label {
+  font-weight: 600;
+  fill: #ffffff;
+  font-size: 0.85rem;
+  text-anchor: end;
+}

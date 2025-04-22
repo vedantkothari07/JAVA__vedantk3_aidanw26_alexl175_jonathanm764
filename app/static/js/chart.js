@@ -1,43 +1,3 @@
-const hahaBtn = document.getElementById("hahahahaha-button");
-const wrapper = document.getElementById("chart-wrapper");
-
-let chartVisible = false;
-
-hahaBtn.addEventListener("click", () => {
-  chartVisible = !chartVisible;
-  wrapper.style.display = chartVisible ? "block" : "none";
-
-  // Optionally clear the chart if hiding
-  if (!chartVisible) {
-    document.getElementById("chart-container").innerHTML = "";
-    document.getElementById("animation-controls").style.display = "none";
-  }
-});
-
-let chartDrawn = false;
-
-document.getElementById("show-chart").addEventListener("click", () => {
-  if (!chartDrawn) {
-    initObesityChart();
-    chartDrawn = true;
-  }
-  document.getElementById("chart-container").style.display = "block";
-  document.getElementById("animation-controls").style.display = "block";
-});
-
-document.getElementById("hide-chart").addEventListener("click", () => {
-  document.getElementById("chart-container").style.display = "none";
-  document.getElementById("animation-controls").style.display = "none";
-  document.getElementById("chart-container").innerHTML = ""; // Clear SVG
-});
-
-document.getElementById("reset-chart").addEventListener("click", () => {
-  document.getElementById("chart-container").innerHTML = "";
-  document.getElementById("chart-container").style.display = "block";
-  document.getElementById("animation-controls").style.display = "block";
-  initObesityChart();
-});
-
 let duration = 250;
 
 document.getElementById("speed-slider").addEventListener("input", (e) => {
@@ -173,16 +133,16 @@ document.getElementById("speed-slider").addEventListener("input", (e) => {
       }
     }
   
-    // --- Modular Chart Elements ---
-  
     function bars(svg) {
       let bar = svg.append("g").attr("fill-opacity", 0.6).selectAll("rect");
-  
+    
       return ([, data], transition) => bar = bar
         .data(data.slice(0, n), d => d.name)
         .join(
           enter => enter.append("rect")
-            .attr("fill", color)
+            .attr("class", d => `bar${d.rank === 0 ? " top" : ""}`)
+            .attr("rx", 6)
+            .attr("ry", 6)
             .attr("height", y.bandwidth())
             .attr("x", x(0))
             .attr("y", d => y((prev.get(d) || d).rank))
@@ -195,7 +155,7 @@ document.getElementById("speed-slider").addEventListener("input", (e) => {
         .call(bar => bar.transition(transition)
           .attr("y", d => y(d.rank))
           .attr("width", d => x(d.value) - x(0)));
-    }
+    }    
   
     function labels(svg) {
       let label = svg.append("g")
