@@ -241,3 +241,10 @@ form select {
   max-width: 600px;
   flex: 1;
 }
+
+h2 {
+  font-family:'Oswald',sans-serif;
+  text-transform:uppercase;
+  background:#ffffff;
+  color:#b91c1c;
+}
