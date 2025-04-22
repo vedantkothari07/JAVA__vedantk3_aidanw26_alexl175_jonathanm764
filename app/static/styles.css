@@ -10,6 +10,12 @@ body {
   color:#b91c1c;
 }
 
+h2 {
+  font-family:'Oswald',sans-serif;
+  text-transform:uppercase;
+  color:#b91c1c;
+}
+
 .navbar {
   display: flex;
   justify-content: space-between;
