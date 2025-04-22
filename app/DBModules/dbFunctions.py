@@ -1,6 +1,5 @@
 import csv
 from pymongo import MongoClient, errors
-import numpy as np
 
 ############################# Build Database #############################
 
@@ -168,16 +167,16 @@ def computeRisk(user_doc):
     return points, category
 
 def risk_factor_percentages(user_doc):
-    #{ "BMI": 26.67, "FAMILY_HISTORY": 20.0, ... }   
+    #{ "BMI": 26.67, "FAMILY_HISTORY": 20.0, ... }
     #labels = keys, values = dict.values()
-    
+
     if not user_doc:
         return {}
 
-    pts = {}                           
+    pts = {}
 
     def add(label, n):
-        if n > 0: 
+        if n > 0:
             pts[label] = pts.get(label, 0) + n
 
     d = user_doc.get("demographics", {})
@@ -209,7 +208,28 @@ def risk_factor_percentages(user_doc):
     add("SNACKING", 2 if snack == "always" else 1 if snack == "frequently" else 0)
 
     h2o = l.get("water_litres", 0)
-    add("LOW WATER", 2 if h2o < 1 else 1 if h2o < 2 else 0)
+    add("LOW WATER": "$demographics.age",
+                "height_m": "$demographics.height_m",
+                "weight_kg": "$demographics.weight_kg",
+                "veggie_freq": "$lifestyle.veggie_freq",
+                "meals_per_day": "$lifestyle.meals_per_day",
+                "water_litres": "$lifestyle.water_litres",
+                "physical_activity": "$lifestyle.physical_activity",
+                "tech_use": "$lifestyle.tech_use"
+            }
+        },
+        {
+            #gets a ratio for non numeric fields
+            "$group": {
+                "_id": None,
+                "avg_age": {"$avg": "$age"},
+                "avg_height_m": {"$avg": "$height_m"},
+                "avg_weight_kg": {"$avg": "$weight_kg"},
+                "avg_veggie_freq": {"$avg": "$veggie_freq"},
+                "avg_meals_per_day": {"$avg": "$meals_per_day"},
+                "avg_water_litres": {"$avg": "$water_litres"},
+                "avg_physical_activity": {"$avg": "$physical_activity"},
+                "avg_tech_use": {"$avg": "$tech_use"},", 2 if h2o < 1 else 1 if h2o < 2 else 0)
 
     if l.get("physical_activity", 0) <= 0:
         add("NO EXERCISE", 3)
@@ -295,7 +315,7 @@ def import_years(csv_path: str = "obesity-cleaned.csv"):
             # make sure we have year
             if year not in by_year:
                 by_year[year] = {
-                    "year": int(year),  
+                    "year": int(year),
                     "countries": {}
                 }
 
@@ -319,7 +339,7 @@ def fetch_obesity_data():
         year = record["year"]
         countries = record["countries"]
         for name, stats in countries.items():
-            value = stats.get("obesity%", 0) 
+            value = stats.get("obesity%", 0)
             all_data.append({
                 "date": f"{year}",
                 "name": name,
@@ -465,10 +485,49 @@ def get_radar_stats(classes):
     ]
 
     docs = list(obesity_records.aggregate(pipeline))
-    for d in docs:                      
+    for d in docs:
         for i in ("veggie_freq","water_litres","physical_activity","tech_use","meals_per_day","high_calorie_food"):
             d[i] = round(d[i], 2)
     return docs
+
+def get_user_radar_values(username):
+    user = getUser(username)
+    if not user:
+        return {}
+    user_radar_values = {}
+    lifestyle= user_doc.get("lifestyle", {})
+    high_calorie_food = lifestyle.get("high_calorie_food", False)
+    if high_calorie_food > 10:
+        high_calorie_food = 1
+    else:
+        high_calorie_food/100
+    veggie_freq = lifestyle.get("veggie_freq",0)
+    if veggie_freq > 10:
+        veggie_freq = 1
+    else:
+        veggie_freq/100
+    meals_per_day = lifestyle.get("meals_per_day", 0)
+    if meals_per_day > 10:
+        meals_per_day = 1
+    else:
+        meals_per_day/100
+    water_litres = lifestyle.get("water_litres", 0)
+    if water_litres > 10:
+        water_litres = 1
+    else:
+        water_litres/100
+    physical_activity = lifestyle.get("physical_activity", 0)
+    if physical_activity > 10:
+        physical_activity = 1
+    else:
+        physical_activity/100
+    tech_use = lifestyle.get("tech_use", 0)
+    if tech_use > 10:
+        tech_use = 1
+    else:
+        tech_use/100
+
+    return user_radar_values
 
 def get_radar_axis():
     axes = [
@@ -488,47 +547,8 @@ def get_radar_axis():
                 "mn": {"$min": f"$lifestyle.{f}"},
                 "mx": {"$max": f"$lifestyle.{f}"}
             }}
-        ]))        
+        ]))
 
         axis[f] = {"min": stats["mn"], "max": stats["mx"]}
 
     return axis
-
-def get_lifestyle_risk_leaderboard():
-    all_users = list(users.find())
-    if not all_users:
-        return []
-
-    lifestyle_keys = list(all_users[0]["lifestyle"].keys())
-    factor_impact = {}
-
-    for key in lifestyle_keys:
-        x = []
-        y = []
-        for user in all_users:
-            try:
-                lifestyle_val = float(user["lifestyle"][key])
-                height = float(user["demographics"]["height_m"])
-                weight = float(user["demographics"]["weight_kg"])
-                bmi = weight / (height ** 2)
-                x.append(lifestyle_val)
-                y.append(bmi)
-            except:
-                continue
-
-        if len(x) > 1:
-            correlation = np.corrcoef(x, y)[0, 1]
-            factor_impact[key] = abs(correlation)
-
-    sorted_factors = sorted(factor_impact.items(), key=lambda x: x[1], reverse=True)
-    return sorted_factors
-
-def get_user_risk_percentages(user_id):
-    """
-    Returns a dictionary of feature: risk_percentage for a given user.
-    """
-    user_data = users.find_one({"_id": user_id})
-    if not user_data or "risk_percentages" not in user_data:
-        return {}
-    
-    return user_data["risk_percentages"]
