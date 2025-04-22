@@ -12,13 +12,13 @@
     <!-- Navbar -->
     <nav class="navbar">
         <a class="brand" href="{{ url_for('home') }}">RSObesity</a>
-        
+
         <a class="nav-link" href="{{ url_for('profile') }}">PROFILE</a>
         <a class="nav-link" href="{{ url_for('map') }}">US MAP</a>
         <a class="nav-link" href="{{ url_for('radar') }}">RADAR</a>
         <a class="nav-link" href="{{ url_for('bar_race') }}">BAR RACE</a>
         <a class="nav-link" href="{{ url_for('leaderboard') }}">LEADERBOARD</a>
-      
+
         <form action="{{ url_for('logout') }}" method="post" style="margin-left:auto;">
           <button type="submit" class="btn logout">GET ME OUT OF HERE</button>
         </form>
@@ -26,6 +26,7 @@
 
       <div class="leaderboard-container">
         <h1>Top Lifestyle Risk Factors Impacting Obesity</h1>
+        <p>This leaderboard ranks the top correlating factors of obesity amongst our userbase. The higher the value is, the greater the factor's correlation is with BMI, or obesity.</p>
         <table class="leaderboard-table">
             <thead>
                 <tr>

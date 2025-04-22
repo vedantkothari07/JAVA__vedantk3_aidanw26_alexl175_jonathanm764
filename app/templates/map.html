@@ -6,26 +6,27 @@
   <title>MAP</title>
   <link rel="stylesheet" href="{{ url_for('static', filename='css/base.css') }}">
   <link rel="stylesheet" href="{{ url_for('static', filename='css/components.css') }}">
-  <link rel="stylesheet" href="{{ url_for('static', filename='css/map.css') }}">  
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/map.css') }}">
   <script src="https://d3js.org/d3.v7.min.js"></script>
   <script src="https://d3js.org/topojson.v3.min.js"></script>
 </head>
 <body>
   <nav class="navbar">
     <a class="brand" href="{{ url_for('home') }}">RSObesity</a>
-    
+
     <a class="nav-link" href="{{ url_for('profile') }}">PROFILE</a>
     <a class="nav-link" href="{{ url_for('map') }}">US MAP</a>
     <a class="nav-link" href="{{ url_for('radar') }}">RADAR</a>
     <a class="nav-link" href="{{ url_for('bar_race') }}">BAR RACE</a>
     <a class="nav-link" href="{{ url_for('leaderboard') }}">LEADERBOARD</a>
-  
+
     <form action="{{ url_for('logout') }}" method="post" style="margin-left:auto;">
       <button type="submit" class="btn logout">GET ME OUT OF HERE</button>
     </form>
   </nav>
   <main class="card" style="max-width:1000px;margin:1rem auto;">
-    <h2>U.S. ADULT OBESITY %</h2>
+    <h1>U.S. ADULT OBESITY %</h1>
+    <p>This map shows the obesity rate of each state in the US. You can click on each state and the map will zoom in and give you a percentage.</p>
     <div id="map"></div>
   </main>
   <script src="{{ url_for('static', filename='js/chart.js') }}"></script>
