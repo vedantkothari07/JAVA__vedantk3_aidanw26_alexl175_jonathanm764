@@ -87,3 +87,9 @@ vedantK -- 2025-04-21 10:58
 alexL -- 2025-04-21 18:40
 * moved charts to new templates
 * added speed slider to flask app
+
+aidanW -- 2025-04-21 22:30
+* Revamped CSS structure 
+* Improved navbar
+* Added styling to charts
+* Created leaderboard to view obesity factors from userbase
