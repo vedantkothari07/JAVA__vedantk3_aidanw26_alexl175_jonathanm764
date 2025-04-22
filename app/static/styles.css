@@ -66,11 +66,15 @@ body {
 }
 
 .stats-list .stats-list-positive {
-  color: #3adb76;
+  font-family:'Oswald',sans-serif;
+  text-transform:uppercase;
+  color: #b91c1c;
 }
 
 .stats-list .stats-list-negative {
-  color: #cc4b37;
+  font-family:'Oswald',sans-serif;
+  text-transform:uppercase;
+  color: #b91c1c;
 }
 
 .stats-list > li {
