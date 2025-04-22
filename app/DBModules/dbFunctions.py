@@ -474,40 +474,49 @@ def get_user_radar_values(username):
     user = getUser(username)
     if not user:
         return {}
-    user_radar_values = {}
-    lifestyle= user_doc.get("lifestyle", {})
-    high_calorie_food = lifestyle.get("high_calorie_food", False)
-    if high_calorie_food > 10:
-        high_calorie_food = 1
-    else:
-        high_calorie_food/100
-    veggie_freq = lifestyle.get("veggie_freq",0)
-    if veggie_freq > 10:
-        veggie_freq = 1
-    else:
-        veggie_freq/100
-    meals_per_day = lifestyle.get("meals_per_day", 0)
-    if meals_per_day > 10:
-        meals_per_day = 1
-    else:
-        meals_per_day/100
-    water_litres = lifestyle.get("water_litres", 0)
-    if water_litres > 10:
-        water_litres = 1
-    else:
-        water_litres/100
-    physical_activity = lifestyle.get("physical_activity", 0)
-    if physical_activity > 10:
-        physical_activity = 1
-    else:
-        physical_activity/100
-    tech_use = lifestyle.get("tech_use", 0)
-    if tech_use > 10:
-        tech_use = 1
-    else:
-        tech_use/100
 
-    return user_radar_values
+    lifestyle = user.get("lifestyle", {})
+
+    fields = [
+        "veggie_freq",
+        "water_litres",
+        "physical_activity",
+        "tech_use",
+        "meals_per_day",
+        "high_calorie_food"
+    ]
+
+    data = {}
+    for f in fields:
+        if f == "high_calorie_food":
+            data[f] = 1 if lifestyle.get(f, False) else 0
+        else:
+            try:
+                data[f] = float(lifestyle.get(f, 0))
+            except (TypeError, ValueError):
+                data[f] = 0.0
+
+    axis_meta = get_radar_axis()
+
+    normalized_data = {}
+    for f in fields:
+        val = data[f]
+        if val > 10:
+            normalized_data[f] = 1.00
+            continue
+
+        mn = axis_meta[f]["min"]
+        mx = axis_meta[f]["max"]
+
+        if mx > mn:
+            scaled = (val - mn) / (mx - mn)
+        else:
+            scaled = 0.5
+
+        scaled = max(0.0, min(1.0, scaled))
+        normalized_data[f] = round(scaled, 2)
+
+    return normalized_data
 
 def get_radar_axis():
     axes = [
