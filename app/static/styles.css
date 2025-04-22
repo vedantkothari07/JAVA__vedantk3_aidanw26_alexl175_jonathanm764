@@ -59,6 +59,7 @@ body {
 .stats-list {
   font-family:'Oswald',sans-serif;
   text-transform:uppercase;
+  color: #b91c1c
   list-style-type: none;
   clear: left;
   margin: 0;
