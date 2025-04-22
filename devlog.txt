@@ -93,3 +93,13 @@ aidanW -- 2025-04-21 22:30
 * Improved navbar
 * Added styling to charts
 * Created leaderboard to view obesity factors from userbase
+
+HOME STRETCH CHECKLIST:
+------------------------------------
+* video :: all
+* documentation :: all
+* fix up styling :: vedant 
+* design doc updates :: alex 
+* requirements and launch guide (for droplet) updates :: aidan 
+* devlog and admin check :: jonathan 
+====================================
