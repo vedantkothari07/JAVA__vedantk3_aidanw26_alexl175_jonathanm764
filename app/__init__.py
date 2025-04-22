@@ -98,6 +98,11 @@ def api_radar():
 def api_radar_meta():
     return jsonify(dbFunctions.get_radar_axis())
 
+@app.route("/api/radar_user")
+def api_user_radar():
+    username = session.get("username")  
+    return jsonify(dbFunctions.get_user_radar_values(username))
+
 @app.route("/api/user_risk", methods=["GET"])
 def user_risk():
     if "username" not in session:
