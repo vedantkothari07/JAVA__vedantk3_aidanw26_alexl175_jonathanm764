@@ -10,7 +10,11 @@
 <body>
     <nav class="navbar">
         <span class="brand">Hello, {{username}}! This is the profile.</span>
-        <a class="nav-link" href="{{ url_for('home') }}">Home</a>
+        <a class="nav-link" href="{{ url_for('home') }}">HOME</a>
+    <a class="nav-link" href="{{ url_for('map') }}">US MAP</a>
+    <a class="nav-link" href="{{ url_for('radar') }}">RADAR</a>
+    <a class="nav-link" href="{{ url_for('profile') }}">PROFILE</a>
+    <a class="nav-link" href="{{ url_for('bar_race') }}">BAR RACE</a>
         <form action="{{ url_for('logout') }}" method="post">
           <button type="submit" class="btn logout">GET ME OUT OF HERE</button>
         </form>
