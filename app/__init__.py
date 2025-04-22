@@ -173,6 +173,21 @@ def radar():
         return redirect(url_for('auth'))
     return render_template("radar.html", username=session['username'])
 
+@app.route("/leaderboard")
+def leaderboard():
+    # This function should return a list of user dicts with keys like 'username' and 'balance'
+    leaderboard_data = dbFunctions.get_total_category_scores()
+
+    # Assuming you have a current user (e.g., from Flask-Login or session)
+    username = session.get('username')
+
+    return render_template(
+        "leaderboard.html",
+        leaderboard=leaderboard_data,
+        username=username
+    )
+
+
 if __name__ == "__main__":
     app.debug = True
     app.run()

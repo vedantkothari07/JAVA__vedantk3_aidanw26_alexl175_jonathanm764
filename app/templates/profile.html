@@ -35,6 +35,7 @@
     <a class="nav-link" href="{{ url_for('radar') }}">RADAR</a>
     <a class="nav-link" href="{{ url_for('profile') }}">PROFILE</a>
     <a class="nav-link" href="{{ url_for('bar_race') }}">BAR RACE</a>
+    <a class="nav-link" href="{{ url_for('leaderboard') }}">LEADERBOARD</a>
     <form action="{{ url_for('logout') }}" method="post">
       <button type="submit" class="btn logout">GET ME OUT OF HERE</button>
     </form>
@@ -49,7 +50,7 @@
 
   <div class="flex-container">
     <form method="POST" class="card form-section">
-      <h2>UPDATE / ADD YOUR INFO</h2>
+      <h2>VISUALIZE YOUR FUTURE</h2>
       <label>age:</label>
       <input type="number" name="age" step="1" required>
       <label>gender:</label>
