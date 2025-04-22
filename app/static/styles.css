@@ -215,3 +215,22 @@ form select {
   font-size: 0.9rem;
   line-height: 1.4;
 }
+
+.flex-container {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 2rem;
+  flex-wrap: wrap;
+  margin: 1rem;
+}
+
+.form-section {
+  max-width: 400px;
+  flex: 1;
+}
+
+.chart-section {
+  max-width: 600px;
+  flex: 1;
+}

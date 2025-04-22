@@ -6,30 +6,51 @@
   <title>PROFILE</title>
   <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
   <script src="https://d3js.org/d3.v7.min.js"></script>
+  <style>
+    .flex-container {
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      gap: 2rem;
+      flex-wrap: wrap;
+      margin: 1rem;
+    }
+
+    .form-section {
+      max-width: 400px;
+      flex: 1;
+    }
+
+    .chart-section {
+      max-width: 600px;
+      flex: 1;
+    }
+  </style>
 </head>
 <body>
-    <nav class="navbar">
-        <span class="brand">Hello, {{username}}! This is the profile.</span>
-        <a class="nav-link" href="{{ url_for('home') }}">HOME</a>
+  <nav class="navbar">
+    <span class="brand">Hello, {{username}}! This is the profile.</span>
+    <a class="nav-link" href="{{ url_for('home') }}">HOME</a>
     <a class="nav-link" href="{{ url_for('map') }}">US MAP</a>
     <a class="nav-link" href="{{ url_for('radar') }}">RADAR</a>
     <a class="nav-link" href="{{ url_for('profile') }}">PROFILE</a>
     <a class="nav-link" href="{{ url_for('bar_race') }}">BAR RACE</a>
-        <form action="{{ url_for('logout') }}" method="post">
-          <button type="submit" class="btn logout">GET ME OUT OF HERE</button>
-        </form>
-      </nav>
+    <form action="{{ url_for('logout') }}" method="post">
+      <button type="submit" class="btn logout">GET ME OUT OF HERE</button>
+    </form>
+  </nav>
 
-    {% if risk_info %}
-      <div class="alert">
-        Obesity‑risk score: <strong>{{ risk_info.points }}</strong> –
-        Category: <strong>{{ risk_info.category }}</strong>
-      </div>
-    {% endif %}
+  {% if risk_info %}
+    <div class="alert">
+      Obesity‑risk score: <strong>{{ risk_info.points }}</strong> –
+      Category: <strong>{{ risk_info.category }}</strong>
+    </div>
+  {% endif %}
 
-    <form method="POST" class="card" style="max-width:540px;margin:1rem auto;">
-        <h2>UPDATE / ADD YOUR INFO</h2>
-        <label>age:</label>
+  <div class="flex-container">
+    <form method="POST" class="card form-section">
+      <h2>UPDATE / ADD YOUR INFO</h2>
+      <label>age:</label>
       <input type="number" name="age" step="1" required>
       <label>gender:</label>
       <select name="gender">
@@ -90,24 +111,24 @@
       <select name="family_history_overweight">
         <option value="yes">Yes</option>
         <option value="no" selected>No</option>
-      </select> 
-
-        <button class="btn" type="submit">PREDICT</button>
+      </select>
+      <button class="btn" type="submit">PREDICT</button>
     </form>
 
-    <section class="card" style="max-width:600px;margin:1rem auto;">
-        <h2>RISK‑FACTOR BREAKDOWN</h2>
-        <div id="risk-chart"></div>
+    <section class="card chart-section">
+      <h2>RISK‑FACTOR BREAKDOWN</h2>
+      <div id="risk-chart"></div>
 
-        {% if recommendations %}
+      {% if recommendations %}
         <h3>BIGGEST CONTRIBUTORS & WHAT TO DO</h3>
         <ol>
-            {% for name,pct,tip in recommendations %}
-              <li><strong>{{ name }}</strong> ({{ pct }} %): {{ tip }}</li>
-            {% endfor %}
+          {% for name, pct, tip in recommendations %}
+            <li><strong>{{ name }}</strong> ({{ pct }} %): {{ tip }}</li>
+          {% endfor %}
         </ol>
-        {% endif %}
+      {% endif %}
     </section>
+  </div>
 
   <script src="{{ url_for('static', filename='risk_chart.js') }}"></script>
 </body>
