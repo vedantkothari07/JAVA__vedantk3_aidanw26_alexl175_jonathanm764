@@ -1,5 +1,6 @@
 import csv
 from pymongo import MongoClient, errors
+import numpy as np
 
 ############################# Build Database #############################
 
@@ -208,28 +209,7 @@ def risk_factor_percentages(user_doc):
     add("SNACKING", 2 if snack == "always" else 1 if snack == "frequently" else 0)
 
     h2o = l.get("water_litres", 0)
-    add("LOW WATER": "$demographics.age",
-                "height_m": "$demographics.height_m",
-                "weight_kg": "$demographics.weight_kg",
-                "veggie_freq": "$lifestyle.veggie_freq",
-                "meals_per_day": "$lifestyle.meals_per_day",
-                "water_litres": "$lifestyle.water_litres",
-                "physical_activity": "$lifestyle.physical_activity",
-                "tech_use": "$lifestyle.tech_use"
-            }
-        },
-        {
-            #gets a ratio for non numeric fields
-            "$group": {
-                "_id": None,
-                "avg_age": {"$avg": "$age"},
-                "avg_height_m": {"$avg": "$height_m"},
-                "avg_weight_kg": {"$avg": "$weight_kg"},
-                "avg_veggie_freq": {"$avg": "$veggie_freq"},
-                "avg_meals_per_day": {"$avg": "$meals_per_day"},
-                "avg_water_litres": {"$avg": "$water_litres"},
-                "avg_physical_activity": {"$avg": "$physical_activity"},
-                "avg_tech_use": {"$avg": "$tech_use"},", 2 if h2o < 1 else 1 if h2o < 2 else 0)
+    add("LOW WATER", 2 if h2o < 1 else 1 if h2o < 2 else 0)
 
     if l.get("physical_activity", 0) <= 0:
         add("NO EXERCISE", 3)
@@ -552,3 +532,35 @@ def get_radar_axis():
         axis[f] = {"min": stats["mn"], "max": stats["mx"]}
 
     return axis
+
+def get_lifestyle_risk_leaderboard():
+
+    all_users = list(users.find())
+    if not all_users:
+        return []
+
+    lifestyle_keys = list(all_users[0]["lifestyle"].keys())
+    factor_impact = {}
+
+    for key in lifestyle_keys:
+        x = []
+        y = []
+        for user in all_users:
+            try:
+                lifestyle_val = float(user["lifestyle"][key])
+                height = float(user["demographics"]["height_m"])
+                weight = float(user["demographics"]["weight_kg"])
+                bmi = weight / (height ** 2)
+                x.append(lifestyle_val)
+                y.append(bmi)
+            except:
+                continue
+
+        if len(x) > 1:
+            correlation = np.corrcoef(x, y)[0, 1]
+            factor_impact[key] = abs(correlation)
+
+    sorted_factors = sorted(factor_impact.items(), key=lambda x: x[1], reverse=True)
+    return sorted_factors
+
+
