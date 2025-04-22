@@ -11,9 +11,9 @@ body {
 }
 
 h2 {
-  font-family:'Oswald',sans-serif;
-  text-transform:uppercase;
-  color:#b91c1c;
+  font-family:'Oswald',sans-serif !important;
+  text-transform:uppercase !important;
+  color:#b91c1c !important;
 }
 
 .navbar {
