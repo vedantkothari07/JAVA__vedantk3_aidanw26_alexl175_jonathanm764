@@ -12,37 +12,53 @@
     text-transform: uppercase;
     color: #b91c1c;
     list-style-type: none;
-    clear: left;
-    margin: 0;
+    margin: 4rem auto 2rem auto;
     padding: 0;
     text-align: center;
-    margin-bottom: 30px;
-  }
-  
-  .stats-list .stats-list-positive,
-  .stats-list .stats-list-negative {
-    color: #b91c1c;
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    flex-wrap: wrap;
+    font-size: 1.4rem;
   }
   
   .stats-list > li {
-    display: inline-block;
-    margin-right: 10px;
-    padding-right: 10px;
-    border-right: 1px solid #cacaca;
-    text-align: center;
-    font-size: 1.1em;
+    padding: 1rem 1.5rem;
+    border-radius: 10px;
+    background-color: #fff5f5;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
     font-weight: bold;
+    color: #b91c1c;
+    min-width: 180px;
   }
   
-  .stats-list > li:last-child {
-    border: none;
-    margin: 0;
-    padding: 0;
-  }
-  
-  .stats-list > li .stats-list-label {
+  .stats-list-label {
     display: block;
-    margin-top: 2px;
-    font-size: 0.9em;
+    margin-top: 0.5rem;
+    font-size: 1rem;
     font-weight: normal;
+    color: #6b7280; 
   }
+  
+  .stats-list-positive {
+    background-color: #fef2f2;
+  }
+  
+  .stats-list-negative {
+    background-color: #fef2f2;
+  }
+
+.intro-paragraph {
+  max-width: 800px; 
+  margin: 6rem auto 3rem auto; 
+  text-align: center;
+  color: #000;
+  font-family: 'Helvetica Neue', sans-serif;
+  font-size: 1.5rem; 
+  line-height: 1.8;
+  padding: 2rem;
+  background-color: #f9f9f9;
+  border-radius: 16px;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+}
+  

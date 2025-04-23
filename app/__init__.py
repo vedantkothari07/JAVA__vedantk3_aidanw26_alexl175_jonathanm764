@@ -7,7 +7,7 @@ Time Spent: 1
 '''
 
 from flask import Flask, render_template, url_for, session, request, redirect, jsonify
-from app.DBModules import dbFunctions
+from DBModules import dbFunctions
 import os
 
 
@@ -189,6 +189,14 @@ def radar():
     if 'username' not in session:
         return redirect(url_for('auth'))
     return render_template("radar.html", username=session['username'])
+
+@app.route("/api/user_radar")
+def get_current_user_radar():
+    username = session.get("username")  # or however you track current user
+    if not username:
+        return jsonify({}), 401
+    return jsonify(dbFunctions.get_user_radar_values(username))
+
 
 @app.route("/risk_leaderboard")
 def leaderboard():
