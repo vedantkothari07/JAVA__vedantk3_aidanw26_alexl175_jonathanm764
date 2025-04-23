@@ -114,3 +114,7 @@ HOME STRETCH CHECKLIST:
 
 alexL -- 2025-04-22 18:00
 * added get user radar function
+
+aidanW -- 2025-04-22 19:14
+* Created user stats on radar using function
+* Updated styling
