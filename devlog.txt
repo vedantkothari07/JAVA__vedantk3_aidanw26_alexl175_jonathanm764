@@ -111,3 +111,6 @@ HOME STRETCH CHECKLIST:
 * requirements and launch guide (for droplet) updates :: aidan 
 * devlog and admin check :: jonathan 
 ====================================
+
+alexL -- 2025-04-22 18:00
+* added get user radar function
