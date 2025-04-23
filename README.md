@@ -72,6 +72,13 @@ $ pip install -r requirements.txt
         
 # Launch Codes
 
+## Best Way
+
+1. Visit https://www.rsobesity.vkothari50.tech/ on any modern browser
+2. Enjoy!
+
+## The DEVO Way
+
 1. Navigate to project directory:
 
 ```
@@ -98,3 +105,14 @@ $ cd PATH/TO/JAVA__vedantk3_aidanw26_alexl175_jonathanm764/
 ```    
 * Running on http://127.0.0.1:5000
 ``` 
+
+### FEATURE SPOTLIGHT
+* blah blah in file ___
+* yadda yadda at line x in file foo...
+* cool thing to do as user... (try this!)
+
+### KNOWN BUGS/ISSUES
+* spider
+* ant
+* PTSD
+* etc
