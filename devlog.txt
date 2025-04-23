@@ -98,9 +98,6 @@ aidanW -- 2025-04-21 22:30
 * Added styling to charts
 * Created leaderboard to view obesity factors from userbase
 
-vedantK -- 2025-04-22 11:13
-* Fixed styling errors in CSS
-* Added explanation of each graph on each page
 
 HOME STRETCH CHECKLIST:
 ------------------------------------
@@ -111,6 +108,9 @@ HOME STRETCH CHECKLIST:
 * requirements and launch guide (for droplet) updates :: aidan 
 * devlog and admin check :: jonathan 
 ====================================
+vedantK -- 2025-04-22 11:13
+* Fixed styling errors in CSS
+* Added explanation of each graph on each page
 
 alexL -- 2025-04-22 18:00
 * added get user radar function
@@ -118,6 +118,10 @@ alexL -- 2025-04-22 18:00
 aidanW -- 2025-04-22 19:14
 * Created user stats on radar using function
 * Updated styling
+
+vedantK -- 2025-04-22 22:17
+* Updated site map on final design doc with new files
+* Made final changes to design doc
 
 aidanW -- 2025-04-23 00:04
 * Updated README and devlog
