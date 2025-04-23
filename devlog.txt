@@ -118,3 +118,7 @@ alexL -- 2025-04-22 18:00
 aidanW -- 2025-04-22 19:14
 * Created user stats on radar using function
 * Updated styling
+
+aidanW -- 2025-04-23 00:04
+* Updated README and devlog
+

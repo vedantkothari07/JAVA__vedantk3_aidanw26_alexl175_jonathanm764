@@ -107,12 +107,10 @@ $ cd PATH/TO/JAVA__vedantk3_aidanw26_alexl175_jonathanm764/
 ``` 
 
 ### FEATURE SPOTLIGHT
-* blah blah in file ___
-* yadda yadda at line x in file foo...
-* cool thing to do as user... (try this!)
+* Bar Chart Race comparing global obesity percentages
+* Profile Algorithm to help users find impactful obesity risks in their lives
+* Functional Radar Chart with Axis
+* Interactive US Map with Obesity percentages (2016 data)
 
 ### KNOWN BUGS/ISSUES
-* spider
-* ant
-* PTSD
-* etc
+* Lack of current/national data on obesity (says something about this country)
